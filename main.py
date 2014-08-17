@@ -4,9 +4,7 @@ from pygame.locals import *
 from Platform import Platform
 '''
 main.py
-
 Creates the outermost frame for the world
-
 @authors: Dan Dangond, Akiva Gordon, Pravina Samaratunga
 '''
 
@@ -21,29 +19,44 @@ grass = pygame.image.load('Images/Grass tile.png')
 ice = pygame.image.load('Images/Ice tile.png')
 brick = pygame.image.load('Images/Brick tile.png')
 
-while True:
+if True:
     print "opened window"
     screen.blit(background, (0, 0)) 
     print 'displayed background'
     pygame.display.update()
     pygame.event.pump()
-    time.sleep(1)
+    #time.sleep(1)
 
+    '''
     for i in range(150):
         screen.blit(background, (0,0))
         screen.blit(ice, (4*i,3*i))
         pygame.display.update()
         pygame.event.pump()
+    '''
         
     screen.blit(background, (0,0))
-    plats = [0,1,2,3,4,5,6,7,8,9]    
-    for i in range(10):
-        plats[i] = Platform(ice, 40*i, 30*i)
+    plats = []
+    for i in range(100):
+        plats.append(i)
+    for i in range(5):
+        plats[i] = Platform(ice, 90+30*i, 30)
         screen.blit(plats[i].image, (plats[i].x, plats[i].y))
-        pygame.display.update()
         
+    pygame.display.update()
     
-    time.sleep(10)
-
-
-
+    for i in range(5):
+        plats[i+5] = Platform(ice, 360+30*i, 30)
+        screen.blit(plats[i+5].image, (plats[i+5].x, plats[i+5].y))
+        
+    pygame.display.update()
+    
+    for i in range(16):
+        print "line 2"
+        plats[i+10] = Platform(ice,60 + 30*i ,90)
+        screen.blit(plats[i+10].image, (plats[i+10].x, plats[i+10].y))
+    pygame.display.update()
+    
+    while True:
+        time.sleep(1)
+        pygame.event.pump()
