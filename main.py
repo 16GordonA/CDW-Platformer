@@ -9,4 +9,6 @@ Creates the outermost frame for the world
 def setup(self):
     size = 600, 450
     screen = pygame.display.set_mode(size) #not working?
+    print "test"
     pygame.display.flip()
+    print "something is wrong"
