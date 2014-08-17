@@ -1,3 +1,4 @@
+import pygame, sys, random, time, pygame.mixer, pygame.font
 '''
 main.py
 
