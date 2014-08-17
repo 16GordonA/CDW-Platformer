@@ -1,7 +1,7 @@
 '''
 Created on Aug 17, 2014
 
-@author: Akiva
+@author: Akiva and Dan(made this comment)
 '''
 
 class Character(object):
