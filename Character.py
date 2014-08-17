@@ -17,4 +17,5 @@ class Character(object):
         pass
 
     def move(self, direction):
+        print "hi"
         pass
