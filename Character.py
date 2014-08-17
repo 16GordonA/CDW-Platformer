@@ -49,8 +49,25 @@ class Character(pygame.sprite.Sprite):
         if speedX < 0:  # if going left
             if self.rect.bottom > target.rect.top and self.rect.top < self.rect.bottom and self.rect.left + self.speedX < target.rect.right and self.rect.left > target.rect.right:
 
-    def checkOnPlatform(self, target):  #Checks if walked off an edge / Only call if land is True and call on all blocks at once / Set self.platformCheck to False before call
+    def checkOnPlatform(self, target):  # Checks if walked off an edge / Only call if land is True and call on all blocks at once / Set self.platformCheck to False before call
         if (self.rect.bottom > target.rect.top or self.rect.bottom < target.rect.top) or (self.rect.left > target.rect.right or self.rect.right < target.rect.left):
             pass
         else:
-            self.platformCheck = True  #if after checking all blocks, platformCheck is still False, set land to False
+            self.platformCheck = True  # if after checking all blocks, platformCheck is still False, set land to False
+
+    def updateSpeed(self):  # Causes gravitational acceleration / Causes air resistance or friction (less when not on the ground) / ADD COUNTERS TO SLOW DOWN IF TOO FAST
+        if self.land == False:  #Gravity
+            self.speedY += 1
+        if self.speedX != 0 and key[K_LEFT] == False and key[K_RIGHT] == False:  # Air Resistance when not choosing a direction
+            if self.land == True:  # If on the ground
+                if self.speedX > 0:  # If going right originally
+                    self.speedX /= 2
+                else:  # If going left originally
+                    self.speedX /= 2
+                    self.speedX += 1
+            else:  # If in the air
+                if self.speedX > 0:  #If going right originally
+                     self.speedX = 3 * self.speedX / 4
+                else:  # If going left originally
+                    self.speedX /= 3 * self.speedX / 4
+                    self.speedX += 1
