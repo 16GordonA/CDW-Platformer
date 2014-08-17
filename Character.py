@@ -80,19 +80,15 @@ class Character(pygame.sprite.Sprite):
                     self.speedX /= 3 * self.speedX / 4
                     self.speedX += 1
         if keyPressed[K_RIGHT] == True:              # Movement Tests
-            if self.land == True:
-                self.move(5, "right")
-            elif self.speedX <= 0:
-                self.move(3, "right")
+            self.move(5, "right")
         elif keyPressed[K_LEFT] == True:
-            if self.land == True:
-                self.move(5, "left")
-            elif self.speedX >= 0:
-                self.move(3, "left")
+            self.move(5, "left")
         if keyPressed[K_UP] == True:
             self.move(10, "up")
         if self.platformCheck == False and self.speedY == 0:
             self.move(0, "up")
+        if keyPressed[K_DOWN] == True:
+            print self.rect
 
     def updateLocation(self):  # Handles the movement simply / Call LAST
         self.rect = self.rect.move(self.speedX, self.speedY)
