@@ -11,8 +11,6 @@ class Platform(pygame.sprite.Sprite):
     '''
     Character can stand on this
     '''
-    x = 0
-    y = 0
 
 
     def __init__(self, image, x, y): #x,y refer to location of top left corner of platform
