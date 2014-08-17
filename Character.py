@@ -6,7 +6,7 @@ Created on Aug 17, 2014
 
 class Character(object):
     '''
-    classdocs
+    classdocs test
     '''
 
 
