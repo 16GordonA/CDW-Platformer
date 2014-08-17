@@ -83,8 +83,8 @@ while True:
         Dude.checkCollision(plats[i])
         Dude.platformCheck = False
         Dude.checkOnPlatform(plats[i])
-        if Dude.platformCheck == False:
-            Dude.land = False
+        if Dude.platformCheck == True:
+            Dude.land = True
         screen.blit(plats[i].image, plats[i].rect)
 
     Dude.updateLocation()
