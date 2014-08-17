@@ -3,6 +3,7 @@ from pygame.locals import *
 
 from Platform import Platform
 from Character import Character
+from Hat import Hat
 
 '''
 main.py
@@ -25,6 +26,7 @@ wall = pygame.image.load('Images/wall.png')
 ceiling = pygame.image.load('Images/Ceiling.png')
 blob = pygame.image.load('Images/Blob Player.png')
 blobert = pygame.image.load('Images/Blobert.png')
+tophat = pygame.image.load('Images/topHat.png')
 
 plats = []
 for i in range(119):
@@ -77,6 +79,7 @@ plats[117] = Platform(wall, 600, -125)
 plats[118] = Platform(ceiling, -100, -100)
 
 Dude = Character(blobert, 285, 400)
+Top = Hat(tophat, Dude)
 
 while True:
     screen.blit(background, (0,0))
@@ -102,8 +105,10 @@ while True:
 
     Dude.updateLocation()
     
-        
+    Top.updateLocation()
+
     screen.blit(Dude.image, Dude.rect)
+    screen.blit(Top.image, Top.rect)
 
     pygame.display.update()
     pygame.event.pump()
