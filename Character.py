@@ -16,7 +16,8 @@ class Character(pygame.sprite.Sprite):
         self.rect = self.image.get_rect().move(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)  # rect is for blitting
         self.speedX = 0
         self.speedY = 0
-        self.onLand = False
+        self.land = False  # true if on a platform
+        self.platformCheck = False  # used during checkOnPlatform method
         #self.direction = direction  # direction (N, S, E, W)
         
     def move(self, speed, direction):  # changes speed on key press
@@ -47,3 +48,9 @@ class Character(pygame.sprite.Sprite):
                 self.speedX = 0:
         if speedX < 0:  # if going left
             if self.rect.bottom > target.rect.top and self.rect.top < self.rect.bottom and self.rect.left + self.speedX < target.rect.right and self.rect.left > target.rect.right:
+
+    def checkOnPlatform(self, target):  #Checks if walked off an edge / Only call if land is True and call on all blocks at once / Set self.platformCheck to False before call
+        if (self.rect.bottom > target.rect.top or self.rect.bottom < target.rect.top) or (self.rect.left > target.rect.right or self.rect.right < target.rect.left):
+            pass
+        else:
+            self.platformCheck = True  #if after checking all blocks, platformCheck is still False, set land to False
