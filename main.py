@@ -1,4 +1,5 @@
 import pygame, sys, random, time, pygame.mixer, pygame.font
+from pygame.locals import *
 '''
 main.py
 
@@ -8,7 +9,7 @@ Creates the outermost frame for the world
 '''
 def setup():
     size = 600, 450
-    background = pygame.image.load("Images/background.png")
+    background = pygame.image.load("test.png")
     print "hi"
     screen = pygame.display.set_mode(size) #not working?
     print "opened window"
