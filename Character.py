@@ -3,6 +3,9 @@ Created on Aug 17, 2014
 
 @author: Akiva and Dan(made this comment)
 '''
+import pygame, sys
+from pygame.locals import *
+
 
 class Character(pygame.sprite.Sprite):
     '''
@@ -45,9 +48,10 @@ class Character(pygame.sprite.Sprite):
                 self.speedY = 1
         if speedX > 0:  # if going right
             if self.rect.bottom > target.rect.top and self.rect.top < self.rect.bottom and self.rect.right + self.speedX > target.rect.left and self.rect.right < target.rect.left:
-                self.speedX = 0:
+                self.speedX = target.rect.left - self.rect.right
         if speedX < 0:  # if going left
             if self.rect.bottom > target.rect.top and self.rect.top < self.rect.bottom and self.rect.left + self.speedX < target.rect.right and self.rect.left > target.rect.right:
+                self.speedX = target.rect.right - self.rect.left
 
     def checkOnPlatform(self, target):  # Checks if walked off an edge / Only call if land is True and call on all blocks at once / Set self.platformCheck to False before call
         if (self.rect.bottom > target.rect.top or self.rect.bottom < target.rect.top) or (self.rect.left > target.rect.right or self.rect.right < target.rect.left):
