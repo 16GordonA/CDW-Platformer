@@ -24,6 +24,7 @@ class Character(pygame.sprite.Sprite):
         #self.direction = direction  # direction (N, S, E, W)
         
     def move(self, speed, direction):  # changes speed on key press / Call after key event is handled
+        print self.land
         if direction == "up" and self.land == True:
             self.speedY = -1 * speed
             self.land = False
