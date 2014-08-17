@@ -8,10 +8,10 @@ Creates the outermost frame for the world
 @authors: Dan Dangond, Akiva Gordon, Pravina Samaratunga
 '''
 
-SCREEN_HEIGHT = 600
-SCREEN_WIDTH = 450
+SCREEN_WIDTH = 600
+SCREEN_HEIGHT = 459 #only to show bottommost layer, for all intensive purposes, the height is 450 pixels
 
-size = SCREEN_HEIGHT, SCREEN_WIDTH
+size = SCREEN_WIDTH, SCREEN_HEIGHT
 screen = pygame.display.set_mode(size)
 
 background = pygame.image.load('Images/background.png')
@@ -37,7 +37,7 @@ if True:
         
     screen.blit(background, (0,0))
     plats = []
-    for i in range(100):
+    for i in range(116):
         plats.append(i)
     for i in range(5):
         plats[i] = Platform(ice, 90+30*i, 30)
@@ -85,18 +85,29 @@ if True:
         screen.blit(plats[i+64].image, (plats[i+64].x, plats[i+64].y))
         
     for i in range(5):
-        plats[i+70] = Platform(grass, 90+30*i, 330)
+        plats[i+70] = Platform(grass, 120+30*i, 330)
         screen.blit(plats[i+70].image, (plats[i+70].x, plats[i+70].y))
         
-     for i in range(5):
-        plats[i+75] = Platform(grass, 360+30*i, 330)
+    for i in range(5):
+        plats[i+75] = Platform(grass, 330+30*i, 330)
         screen.blit(plats[i+75].image, (plats[i+75].x, plats[i+75].y))
         
+    for i in range(3):
+        plats[i+80] = Platform(brick,  30*i, 390)
+        screen.blit(plats[i+80].image, (plats[i+80].x, plats[i+80].y))
         
-    
-    
-    
-    
+    for i in range(10):
+        plats[i+83] = Platform(brick, 150 + 30*i, 390)
+        screen.blit(plats[i+83].image, (plats[i+83].x, plats[i+83].y))
+        
+    for i in range(3):
+        plats[i+93] = Platform(brick,  510+ 30*i, 390)
+        screen.blit(plats[i+93].image, (plats[i+93].x, plats[i+93].y))
+        
+    for i in range(20):
+        plats[i+96] = Platform(brick, 30*i, 450)
+        screen.blit(plats[i+96].image, (plats[i+96].x, plats[i+96].y))
+        
     pygame.display.update()
     
     while True:
