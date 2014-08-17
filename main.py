@@ -7,18 +7,24 @@ Creates the outermost frame for the world
 
 @authors: Dan Dangond, Akiva Gordon, Pravina Samaratunga
 '''
+white = 255, 255, 255
+
 def setup():
     size = 600, 450
-    background = pygame.image.load('test.png')
+    background = pygame.image.load('test.bmp') #will not work on my computer...
     print "hi"
-    screen = pygame.display.set_mode(size) #not working?
+    screen = pygame.display.set_mode(size) #works
     print "opened window"
-    screen.blit(background, (0, 0))
+    pygame.draw.rect(
+                screen, white, pygame.Rect(
+                    20, 20, 20,
+                    20)) #test draws rectangle
+    screen.blit(background, (0, 0)) #needs image to load...
     print 'displayed background'
     pygame.display.update()
     pygame.event.pump()
     print 'huh'
-    #time.sleep(1000)
+    time.sleep(1000)
     
     
 setup()
