@@ -1,5 +1,7 @@
 import pygame, sys, random, time, pygame.mixer, pygame.font
 from pygame.locals import *
+
+from Platform import Platform
 '''
 main.py
 
@@ -32,5 +34,13 @@ while True:
         screen.blit(ice, (4*i,3*i))
         pygame.display.update()
         pygame.event.pump()
+        
+    for i in range(10):
+        plats[i] = Platform(ice, 40*i, 30*i)
+        screen.blit(plats[i], (plats[i].x, plats[i].y))
+        
+    
+    time.sleep(1)
+
 
 
