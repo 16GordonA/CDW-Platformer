@@ -16,7 +16,9 @@ class windowCommands:
     def initialize(self):
         root = Tk()
         self.center(root)
+        self.correct_size(root)
         root.mainloop()
+        return root
     
     def center(self, window):
 	window.update()
