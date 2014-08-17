@@ -9,7 +9,7 @@ Creates the outermost frame for the world
 '''
 def setup():
     size = 600, 450
-    background = pygame.image.load("test.png")
+    background = pygame.image.load('test.png')
     print "hi"
     screen = pygame.display.set_mode(size) #not working?
     print "opened window"
