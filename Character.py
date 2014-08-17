@@ -17,7 +17,7 @@ class Character(pygame.sprite.Sprite):
         #self.direction = direction  # direction (N, S, E, W)
         
     def moveLR(self, direction): #controls movement side to side
-          for i in range(10):
+          for i in range(10): #needs to be updated for pixel sizes
             if (self.canMove()):
                 #test for determining if runs off platform?
                 self.rect = self.rect.move(1)
