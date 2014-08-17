@@ -52,9 +52,51 @@ if True:
     pygame.display.update()
     
     for i in range(16):
-        print "line 2"
         plats[i+10] = Platform(ice,60 + 30*i ,90)
         screen.blit(plats[i+10].image, (plats[i+10].x, plats[i+10].y))
+    pygame.display.update()
+    
+    for i in range(7):
+        plats[i+26] = Platform(ice, 30*i, 150)
+        screen.blit(plats[i+26].image, (plats[i+26].x, plats[i+26].y))
+        
+    for i in range(7):
+        plats[i+33] = Platform(ice, 390+ 30*i, 150)
+        screen.blit(plats[i+33].image, (plats[i+33].x, plats[i+33].y))
+        
+    pygame.display.update()
+        
+    for i in range(12):
+        plats[i+40] = Platform(grass, 120+30*i, 210)
+        screen.blit(plats[i+40].image, (plats[i+40].x, plats[i+40].y))
+    
+    pygame.display.update()
+    
+    for i in range(6):
+        plats[i+52] = Platform(grass, 30*i, 270)
+        screen.blit(plats[i+52].image, (plats[i+52].x, plats[i+52].y))
+    
+    for i in range(6):
+        plats[i+58] = Platform(grass, 210+30*i, 270)
+        screen.blit(plats[i+58].image, (plats[i+58].x, plats[i+58].y))
+    
+    for i in range(6):
+        plats[i+64] = Platform(grass, 420+30*i, 270)
+        screen.blit(plats[i+64].image, (plats[i+64].x, plats[i+64].y))
+        
+    for i in range(5):
+        plats[i+70] = Platform(grass, 90+30*i, 330)
+        screen.blit(plats[i+70].image, (plats[i+70].x, plats[i+70].y))
+        
+     for i in range(5):
+        plats[i+75] = Platform(grass, 360+30*i, 330)
+        screen.blit(plats[i+75].image, (plats[i+75].x, plats[i+75].y))
+        
+        
+    
+    
+    
+    
     pygame.display.update()
     
     while True:
