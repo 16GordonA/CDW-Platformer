@@ -13,3 +13,8 @@ class Character(object):
     def __init__(self, params):
         '''
         Constructor
+        '''
+        pass
+
+    def move(self, direction):
+        pass
