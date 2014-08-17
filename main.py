@@ -32,6 +32,5 @@ while True:
         screen.blit(ice, (4*i,3*i))
         pygame.display.update()
         pygame.event.pump()
-    
-    time.sleep(1)
+
 
