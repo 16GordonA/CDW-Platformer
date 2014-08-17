@@ -3,9 +3,8 @@ CDW-Platformer
 
 A Platformer game of the arena or puzzle variety
 
+Credits:
 ==============
-
-Credits: 
 
 Dan Dangond: Code and Visual Assets
 
