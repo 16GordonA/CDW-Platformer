@@ -22,9 +22,10 @@ ice = pygame.image.load('Images/Ice tile.png')
 brick = pygame.image.load('Images/Brick tile.png')
 player = pygame.image.load('Images/Player.png')
 wall = pygame.image.load('Images/wall.png')
+ceiling = pygame.image.load('Images/Ceiling.png')
 
 plats = []
-for i in range(118):
+for i in range(119):
     plats.append(i)
         
 for i in range(5):
@@ -71,6 +72,7 @@ for i in range(20):
     
 plats[116] = Platform(wall, -5, -125)
 plats[117] = Platform(wall, 600, -125)
+plats[118] = Platform(ceiling, -100, -100)
 
 Dude = Character(player, 285, 400)
 
