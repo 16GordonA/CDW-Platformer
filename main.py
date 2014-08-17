@@ -35,12 +35,14 @@ while True:
         pygame.display.update()
         pygame.event.pump()
         
+    screen.blit(background, (0,0))
+    plats = [0,1,2,3,4,5,6,7,8,9]    
     for i in range(10):
         plats[i] = Platform(ice, 40*i, 30*i)
-        screen.blit(plats[i], (plats[i].x, plats[i].y))
+        screen.blit(plats[i].image, (plats[i].x, plats[i].y))
         
     
-    time.sleep(1)
+    time.sleep(10)
 
 
 
