@@ -64,13 +64,32 @@ for i in range(3):
 for i in range(20):
     plats[i+96] = Platform(brick, 30*i, 450)
 
-Dude = Character(player, 285, 405)
+Dude = Character(player, 285, 400)
 
 while True:
     screen.blit(background, (0,0))
-    screen.blit(Dude.image, Dude.rect)
+    
+    Dude.platformCheck = False
+
+    key = pygame.key.get_pressed()
+
+    Dude.updateSpeed(key)
+
+    
+    if key[K_ESCAPE] == True:
+        sys.exit()
+
     for i in range(116):
+        Dude.checkCollision(plats[i])
+        Dude.platformCheck = False
+        Dude.checkOnPlatform(plats[i])
+        if Dude.platformCheck == False:
+            Dude.land = False
         screen.blit(plats[i].image, plats[i].rect)
-        
+
+    Dude.updateLocation()
+
+    screen.blit(Dude.image, Dude.rect)
+
     pygame.display.update()
     pygame.event.pump()
