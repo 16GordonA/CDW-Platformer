@@ -21,9 +21,10 @@ grass = pygame.image.load('Images/Grass tile.png')
 ice = pygame.image.load('Images/Ice tile.png')
 brick = pygame.image.load('Images/Brick tile.png')
 player = pygame.image.load('Images/Player.png')
+wall = pygame.image.load('Images/wall.png')
 
 plats = []
-for i in range(116):
+for i in range(118):
     plats.append(i)
         
 for i in range(5):
@@ -48,6 +49,10 @@ for i in range(6):
     plats[i+58] = Platform(grass, 210+30*i, 270)
 for i in range(6):
     plats[i+64] = Platform(grass, 420+30*i, 270)
+plats[57] = Platform(grass, 135, 270)
+plats[58] = Platform(grass, 225, 270)
+plats[63] = Platform(grass, 345, 270)
+plats[64] = Platform(grass, 435, 270)
 
 for i in range(5):
     plats[i+70] = Platform(grass, 120+30*i, 330)
@@ -63,6 +68,9 @@ for i in range(3):
                 
 for i in range(20):
     plats[i+96] = Platform(brick, 30*i, 450)
+    
+plats[116] = Platform(wall, -5, -125)
+plats[117] = Platform(wall, 600, -125)
 
 Dude = Character(player, 285, 400)
 
@@ -70,6 +78,7 @@ while True:
     screen.blit(background, (0,0))
     
     Dude.platformCheck = False
+
 
     key = pygame.key.get_pressed()
 
@@ -79,7 +88,7 @@ while True:
     if key[K_ESCAPE] == True:
         sys.exit()
 
-    for i in range(116):
+    for i in range(118):
         Dude.checkCollision(plats[i])
         Dude.platformCheck = False
         Dude.checkOnPlatform(plats[i])
@@ -88,7 +97,8 @@ while True:
         screen.blit(plats[i].image, plats[i].rect)
 
     Dude.updateLocation()
-
+    
+        
     screen.blit(Dude.image, Dude.rect)
 
     pygame.display.update()
