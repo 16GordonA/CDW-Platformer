@@ -20,7 +20,7 @@ class Character(pygame.sprite.Sprite):
         self.platformCheck = False  # used during checkOnPlatform method
         #self.direction = direction  # direction (N, S, E, W)
         
-    def move(self, speed, direction):  # changes speed on key press
+    def move(self, speed, direction):  # changes speed on key press / Call after key event is handled
         if direction == "up" and self.land == True:
             self.speedY = -1 * speed
             self.land = False
@@ -28,7 +28,7 @@ class Character(pygame.sprite.Sprite):
             self.speedX = speed
         elif direction == "left":
             self.speedX = -1 * speed
-        elif direction == "horizontal stop":  # down key not needed for anything
+        elif direction == "horizontal stop":  # down key not needed for anything / added in case necessary
             self.speedX = 0
 
     def checkCollision(self, target):
@@ -66,8 +66,11 @@ class Character(pygame.sprite.Sprite):
                     self.speedX /= 2
                     self.speedX += 1
             else:  # If in the air
-                if self.speedX > 0:  #If going right originally
+                if self.speedX > 0:  # If going right originally
                      self.speedX = 3 * self.speedX / 4
                 else:  # If going left originally
                     self.speedX /= 3 * self.speedX / 4
                     self.speedX += 1
+
+    def updateLocation(self):  # Handles the movement simply / Call LAST
+        self.rect.move(self.speedX, self.speedY)
