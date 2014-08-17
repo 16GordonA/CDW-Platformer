@@ -13,10 +13,10 @@ class Character(pygame.sprite.Sprite):
     '''
 
 
-    def __init__(self, image, direction):
+    def __init__(self, image, startX, startY):
         pygame.sprite.Sprite.__init__(self)
         self.image = image.convert_alpha()  # transparent image
-        self.rect = self.image.get_rect().move(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)  # rect is for blitting
+        self.rect = self.image.get_rect().move(startX, startY)  # rect is for blitting
         self.speedX = 0
         self.speedY = 0
         self.land = False  # true if on a platform
