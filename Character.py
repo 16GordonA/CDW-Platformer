@@ -16,6 +16,9 @@ class Character(pygame.sprite.Sprite):
         self.rect = self.image.get_rect().move(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)  # rect is for blitting
         #self.direction = direction  # direction (N, S, E, W)
         
-    def move(self, direction):
-        print "hi"
-        pass
+    def moveLR(self, direction): #controls movement side to side
+          for i in range(10):
+            if (self.canMove()):
+                #test for determining if runs off platform?
+                self.rect = self.rect.move(1)
+                pygame.time.delay(5)
