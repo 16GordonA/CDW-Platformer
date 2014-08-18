@@ -41,53 +41,30 @@ stickFist = pygame.image.load('Weapon Pics/Stick Fist.png')
 characterName = 'gel'  # blobert, gel or player
 
 plats = []
-for i in range(119):
-    plats.append(i)
-for i in range(5):
-    plats[i] = Platform(ice, 90 + 30 * i, 30)
-for i in range(5):
-    plats[i + 5] = Platform(ice, 360 + 30 * i, 30)
-
-for i in range(16):
-    plats[i + 10] = Platform(ice, 60 + 30 * i, 90)
-
-for i in range(7):
-    plats[i + 26] = Platform(ice, 30 * i, 150)
-for i in range(7):
-    plats[i + 33] = Platform(ice, 390 + 30 * i, 150)
-      
-for i in range(12):
-    plats[i + 40] = Platform(grass, 120 + 30 * i, 210)
-
-for i in range(6):
-    plats[i + 52] = Platform(grass, 30 * i, 270)
-for i in range(6):
-    plats[i + 58] = Platform(grass, 210 + 30 * i, 270)
-for i in range(6):
-    plats[i + 64] = Platform(grass, 420 + 30 * i, 270)
-plats[57] = Platform(grass, 135, 270)
-plats[58] = Platform(grass, 225, 270)
-plats[63] = Platform(grass, 345, 270)
-plats[64] = Platform(grass, 435, 270)
-
-for i in range(5):
-    plats[i + 70] = Platform(grass, 120 + 30 * i, 330)
-for i in range(5):
-    plats[i + 75] = Platform(grass, 330 + 30 * i, 330)
-
-for i in range(3):
-    plats[i + 80] = Platform(brick, 30 * i, 390)
-for i in range(10):
-    plats[i + 83] = Platform(brick, 150 + 30 * i, 390)
-for i in range(3):
-    plats[i + 93] = Platform(brick, 510 + 30 * i, 390)
-        
-for i in range(20):
-    plats[i + 96] = Platform(brick, 30 * i, 450)
-  
-plats[116] = Platform(wall, -5, -125)
-plats[117] = Platform(wall, 600, -125)
-plats[118] = Platform(ceiling, -100, -100)
+plat_strings = [["eeeeeeeeeeeeeeeeeeee" for i in range(20)] for j in range(8)]
+plat_strings[0] = "eeeiiiiieeeeiiiiieee"
+plat_strings[1] = "eeiiiiiiiiiiiiiiiiee"
+plat_strings[2] = "iiiiiiieeeeeeiiiiiii"
+plat_strings[3] = "eeeeggggggggggggeeee"
+plat_strings[4] = "ggggggeegggggeeggggg"
+plat_strings[5] = "eeeegggggeegggggeeee"
+plat_strings[6] = "bbbeebbbbbbbbbbeebbb"
+plat_strings[7] = "bbbbbbbbbbbbbbbbbbbb"
+walls = []
+walls.append(Platform(wall, -5, -125))
+walls.append(Platform(wall, 600, -125))
+walls.append(Platform(ceiling, -100, -100))
+for p in range(len(plat_strings)):
+    for c in range(len(plat_strings[p])):
+        img = None
+        if plat_strings[p][c] == "i":
+            img = Platform(ice, c * 30, 30 + p * 60)
+        elif plat_strings[p][c] == "g":
+            img = Platform(grass, c * 30, 30 + p * 60)
+        elif plat_strings[p][c] == "b":
+            img = Platform(brick, c * 30, 30 + p * 60)
+        if img is not None:
+            plats.append(img)
 
 if(characterName == 'blobert'):
     Dude = Character(blobert, 300, 400)
@@ -126,7 +103,7 @@ while True:
         for i in range(len(weapons)):
             weapons[i].activate()
 
-    for i in range(118):
+    for i in range(len(plats)):
         Dude.checkCollision(plats[i])
         Dude.platformCheck = False
         Dude.checkOnPlatform(plats[i])
