@@ -85,9 +85,8 @@ elif characterName == 'player':
     Dude = Character(player, 300, 400)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(stickFist, 300, 425, 5, "stickFist")
-    
+
 Enemy1 = Enemy(enemy, 285, 60, "vampire")
-    
 Fist.setOwner(Dude)
 
 Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
@@ -120,19 +119,10 @@ while True:
     if key[K_SPACE]:
         for w in all_weapons.sprites():
             w.activate()
-    
+
     if key[K_h]:
         print Enemy1.HP
 
-    for p in all_plats:
-        for e in all_enemies.sprites():
-            e.checkCollision(p)
-            e.platformCheck = False
-            e.checkOnPlatform(p)
-            if e.platformCheck:
-                e.land = True
-
-    Dude.update(key, all_plats)
     for w in all_weapons.sprites():
         if(w.owner == Dude):
             w.setDirection(Dude.direction)

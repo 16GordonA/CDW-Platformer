@@ -17,6 +17,8 @@ class MeleeWeapon(pygame.sprite.Sprite):
         self.timer = 0  # counts five times
         self.cooldown = 0  # counts eight times starting at same time as timer
         self.cooldownMax = 8
+        self.floatcount = 0
+        self.floatcountMax = 1000
         self.activated = False
         self.name = name
         self.dir = 'R'  # direction (L, R)
@@ -37,6 +39,18 @@ class MeleeWeapon(pygame.sprite.Sprite):
                 self.activated = False
                 self.rect = self.rect.move(-1 * self.rect.x, -1 * self.rect.y)
                 self.rect = self.rect.move(self.startX, self.startY)
+        """
+        else:
+            if self.floatcount == self.floatcountMax:
+                self.floatcount = -self.floatcountMax * 2
+            elif self.floatcount < -self.floatcountMax:
+                pass
+            elif self.floatcount < 0 and self.floatcount > -10:
+                self.rect = self.rect.move(self.rect.x, self.rect.y - 1)  # assumes not at the top
+            elif self.floatcount >= 0 and self.floatcount < 10:
+                self.rect = self.rect.move(self.rect.x, self.rect.y + 1)  # assumes not at the top
+                self.floatcount += 1
+        """
 
     def contactPlayer(self, target):
         if self.rect.bottom > target.rect.top and self.rect.top < target.rect.bottom and self.rect.right > target.rect.left and self.rect.left < target.rect.right and self.owner is None:
