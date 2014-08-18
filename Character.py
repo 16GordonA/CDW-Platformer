@@ -17,7 +17,16 @@ class Character(pygame.sprite.Sprite):
         self.land = False  # true if on a platform
         self.platformCheck = False  # used during checkOnPlatform method
         self.item = None
-        #self.direction = direction  # direction (N, S, E, W)
+        self.direction = 'R'  # direction (L,R)
+        self.alive = True
+        self.HP = 100
+        
+    def setHP(self, newHP):
+        self.HP = newHP
+        if(self.HP <= 0):
+            self.alive = False
+        
+        #probably something else should go in here too about removing sprite from game or changing image
         
     def move(self, speed, direction):  # changes speed on key press / Call after key event is handled
         if direction == "up" and self.land:
@@ -25,8 +34,10 @@ class Character(pygame.sprite.Sprite):
             self.land = False
         elif direction == "right":
             self.speedX = speed
+            self.direction = 'R'
         elif direction == "left":
             self.speedX = -1 * speed
+            self.direction = 'L'
         elif direction == "horizontal stop":  # down key not needed for anything / added in case necessary
             self.speedX = 0
 

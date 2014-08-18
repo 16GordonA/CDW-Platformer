@@ -132,6 +132,9 @@ while True:
         screen.blit(plats[i].image, plats[i].rect)
 
     Dude.updateLocation()
+    for i in range(len(weapons)):
+        if(weapons[i].owner == Dude):
+            weapons[i].setDirection(Dude.direction)
     if(characterName == 'blobert'):
         Top.updateLocation()
 
