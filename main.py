@@ -36,6 +36,8 @@ spear = pygame.image.load('Weapon Pics/Spear.png')
 
 blobFist = pygame.image.load('Weapon Pics/blobertFist.png')
 
+characterName = 'blobert' #blobert, blob or player
+
 plats = []
 for i in range(119):
     plats.append(i)
@@ -86,9 +88,18 @@ plats[116] = Platform(wall, -5, -125)
 plats[117] = Platform(wall, 600, -125)
 plats[118] = Platform(ceiling, -100, -100)
 
-Dude = Character(blobert, 300, 400)
-Top = Hat(tophat, Dude)
-blobertFist = Fist(blobFist, 300, 245, 5)
+if(characterName == 'blobert'):
+    Dude = Character(blobert, 300, 400)
+    Top = Hat(tophat, Dude)
+    blobertFist = Fist(blobFist, 300, 245, 5)
+elif(characterName == 'blob'):
+    Dude = Character(blob, 300, 400)
+    #Top = Hat(tophat, Dude)
+    blobertFist = Fist(blobFist, 300, 245, 5) #should be changed also
+elif(characterName == 'player'):
+    Dude = Character(player, 300, 400)
+    #Top = Hat(tophat, Dude)
+    blobertFist = Fist(blobFist, 300, 245, 5) #should also be changed
 
 while True:
     screen.blit(background, (0,0))
@@ -113,13 +124,15 @@ while True:
         screen.blit(plats[i].image, plats[i].rect)
 
     Dude.updateLocation()
-    Top.updateLocation()
+    if(characterName == 'blobert'):
+        Top.updateLocation()
 
     blobertFist.contactPlayer(Dude)
     blobertFist.updateLocation()
 
     screen.blit(Dude.image, Dude.rect)
-    screen.blit(Top.image, Top.rect)
+    if(characterName == 'blobert'):
+        screen.blit(Top.image, Top.rect)
     screen.blit(blobertFist.image, blobertFist.rect)
 
     pygame.display.update()
