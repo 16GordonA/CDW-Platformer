@@ -41,7 +41,7 @@ stickFist = pygame.image.load('Weapon Pics/Stick Fist.png')
 bow = pygame.image.load('Weapon Pics/Bow.png')
 arrow = pygame.image.load('Weapon Pics/Arrow.png')
 
-characterName = 'blobert'  # blobert, gel or player
+characterName = 'gel'  # blobert, gel or player
 
 
 # read in plats from arena file
