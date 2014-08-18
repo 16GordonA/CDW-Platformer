@@ -47,14 +47,10 @@ characterName = 'gel'  # blobert, gel or player
 
 # read in plats from arena file
 f = open("arena_1.txt", "r")
-walls = []
 plat_strings = []
 for i in range(9):  # 9 IS THE LENGTH OF PLAT - NEEDS TO BE CHANGED IF NUMBER OF ROWS CHANGES
     plat_strings.append(f.readline())
 plat_strings.remove(plat_strings[0])
-walls.append(Platform(wall, -5, -125))
-walls.append(Platform(wall, 600, -125))
-walls.append(Platform(ceiling, -100, -100))
 for p in range(len(plat_strings)):
     for c in range(len(plat_strings[p])):
         img = None
@@ -64,6 +60,12 @@ for p in range(len(plat_strings)):
             img = Platform(grass, c * 30, 30 + p * 60)
         elif plat_strings[p][c] == "b":
             img = Platform(brick, c * 30, 30 + p * 60)
+        if img is not None:
+            all_plats.add(img)
+# adding walls
+all_plats.add(Platform(wall, -5, -125))
+all_plats.add(Platform(wall, 600, -125))
+all_plats.add(Platform(ceiling, -100, -100))
 
 if characterName == 'blobert':
     Dude = Character(blobert, 300, 400)
@@ -106,9 +108,9 @@ while True:
             w.activate()
 
     for p in all_plats:
-        Dude.checkCollision(plats[i])
+        Dude.checkCollision(p)
         Dude.platformCheck = False
-        Dude.checkOnPlatform(plats[i])
+        Dude.checkOnPlatform(p)
         if Dude.platformCheck:
             Dude.land = True
 
@@ -123,6 +125,11 @@ while True:
         w.contactPlayer(Dude)
         w.updateLocation()
         w.tickTimer()
+
+    for p in all_plats:
+        sprite.spritecollide(p, all_projs, True)
+    for c in all_chars:
+        sprite.spritecollide(c, all_projs, True)
 
     pygame.display.update()
     pygame.event.pump()
