@@ -4,25 +4,36 @@ from pygame.locals import *
 
 class MeleeWeapon(pygame.sprite.Sprite):
     
-    def __init__(self, image, startX, startY, damage):
+    def __init__(self, image, startX, startY, damage, name):
         pygame.sprite.Sprite.__init__(self)
         self.image = image.convert_alpha()  # transparent image
         self.rect = self.image.get_rect().move(startX, startY)  # rect is for blitting
+        self.startX = startX
+        self.startY = startY
         self.owner = None
         self.dmg = damage
         self.timer = 0  #counts five times
         self.cooldown = 0  # counts eight times starting at same time as timer
         self.activated = False
+        self.name = name
     
     def updateLocation(self):  # Only used when it has an owner and is activated
         if self.owner != None and self.activated == True:
             self.rect = self.rect.move(-1 * self.rect.x, -1 * self.rect.y)
             self.rect = self.rect.move(self.owner.rect.right, self.owner.rect.centery - (self.rect.height / 2))
+            if self.owner.Item != self.name:
+                self.owner = None
+                self.timer = 0
+                self.cooldown = 0
+                self.activated = False
+                self.rect = self.rect.move(-1 * self.rect.x, -1 * self.rect.y)
+                self.rect = self.rect.move(self.startX, self.startY)
 
     def contactPlayer(self, target):
         if self.rect.bottom > target.rect.top and self.rect.top < target.rect.bottom and self.rect.right > target.rect.left and self.rect.left < target.rect.right and self.owner == None:
             self.owner = target
             self.rect = self.rect.move(999, 999)
+            self.owner.refreshItem(self.name)
 
     def activate(self):
         if self.cooldown == 0:

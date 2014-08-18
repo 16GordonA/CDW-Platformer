@@ -21,6 +21,7 @@ class Character(pygame.sprite.Sprite):
         self.speedY = 0
         self.land = False  # true if on a platform
         self.platformCheck = False  # used during checkOnPlatform method
+        self.item = None
         #self.direction = direction  # direction (N, S, E, W)
         
     def move(self, speed, direction):  # changes speed on key press / Call after key event is handled
@@ -92,3 +93,6 @@ class Character(pygame.sprite.Sprite):
 
     def updateLocation(self):  # Handles the movement simply / Call LAST
         self.rect = self.rect.move(self.speedX, self.speedY)
+
+    def refreshItem(self, itemName):
+        self.Item = itemName

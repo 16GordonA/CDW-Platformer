@@ -94,18 +94,18 @@ plats[118] = Platform(ceiling, -100, -100)
 if(characterName == 'blobert'):
     Dude = Character(blobert, 300, 400)
     Top = Hat(tophat, Dude)
-    Fist = MeleeWeapon(blobFist, 300, 245, 5)
+    Fist = MeleeWeapon(blobFist, 300, 245, 5, "blobFist")
 elif(characterName == 'gel'):
     Dude = Character(gel, 300, 400)
     #Top = Hat(tophat, Dude)
-    Fist = MeleeWeapon(gelFist, 300, 245, 5) 
+    Fist = MeleeWeapon(gelFist, 300, 245, 5, "gelFist") 
 elif(characterName == 'player'):
     Dude = Character(player, 300, 400)
     #Top = Hat(tophat, Dude)
-    Fist = MeleeWeapon(stickFist, 300, 245, 5) 
+    Fist = MeleeWeapon(stickFist, 300, 245, 5, "stickFist") 
 
-Sword = MeleeWeapon(sword, 150, 65, 8)
-Dagger = MeleeWeapon(dagger, 450, 65, 10)
+Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
+Dagger = MeleeWeapon(dagger, 450, 65, 10, "Dagger")
 
 
 weapons = [Fist, Sword, Dagger]
