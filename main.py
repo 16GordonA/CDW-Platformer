@@ -29,6 +29,7 @@ wall = pygame.image.load('Images/wall.png')
 ceiling = pygame.image.load('Images/Ceiling.png')
 gel = pygame.image.load('Images/Blob Player.png')
 blobert = pygame.image.load('Images/Blobert.png')
+enemy = pygame.image.load('Enemy.png')
 
 tophat = pygame.image.load('Images/topHat.png')
 
@@ -72,7 +73,7 @@ if characterName == 'blobert':
     Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(blobFist, 300, 245, 5, "blobFist")
 elif characterName == 'gel':
-    Dude = Character(gel, 300, 400)
+    Dude = Character(enemy, 300, 400)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(gelFist, 300, 245, 5, "gelFist")
 elif characterName == 'player':
