@@ -76,15 +76,15 @@ all_plats.add(Platform(ceiling, -100, -100))
 if characterName == 'blobert':
     Dude = Character(blobert, 300, 400)
     Top = Hat(tophat, Dude)
-    Fist = MeleeWeapon(blobFist, 300, 425, 5, "blobFist")
+    Fist = MeleeWeapon(blobFist, 999, 999, 5, "blobFist")
 elif characterName == 'gel':
     Dude = Character(gel, 300, 400)
     #Top = Hat(tophat, Dude)
-    Fist = MeleeWeapon(gelFist, 300, 425, 5, "gelFist")
+    Fist = MeleeWeapon(gelFist, 999, 999, 5, "gelFist")
 elif characterName == 'player':
     Dude = Character(player, 300, 400)
     #Top = Hat(tophat, Dude)
-    Fist = MeleeWeapon(stickFist, 300, 425, 5, "stickFist")
+    Fist = MeleeWeapon(stickFist, 999, 999, 5, "stickFist")
     
 Enemy1 = Enemy(enemy, 285, 60, "vampire")
     
@@ -121,8 +121,8 @@ while True:
         for w in all_weapons.sprites():
             w.activate()
     
-    if key[K_h]:
-        print Enemy1.HP
+    if key[K_g]:
+        Fist.setOwner(Dude)
 
     for p in all_plats:
         for e in all_enemies.sprites():
