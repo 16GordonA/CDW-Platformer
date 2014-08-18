@@ -25,7 +25,7 @@ brick = pygame.image.load('Images/Brick tile.png')
 player = pygame.image.load('Images/Player.png')
 wall = pygame.image.load('Images/wall.png')
 ceiling = pygame.image.load('Images/Ceiling.png')
-blob = pygame.image.load('Images/Blob Player.png')
+gel = pygame.image.load('Images/Blob Player.png')
 blobert = pygame.image.load('Images/Blobert.png')
 
 tophat = pygame.image.load('Images/topHat.png')
@@ -35,8 +35,10 @@ dagger = pygame.image.load('Weapon Pics/Dagger.png')
 spear = pygame.image.load('Weapon Pics/Spear.png')
 
 blobFist = pygame.image.load('Weapon Pics/blobertFist.png')
+gelFist = pygame.image.load('Weapon Pics/Gel Fist.png')
+stickFist = pygame.image.load('Weapon Pics/Stick Fist.png')
 
-characterName = 'blobert' #blobert, blob or player
+characterName = 'player' #blobert, gel or player
 
 plats = []
 for i in range(119):
@@ -91,15 +93,15 @@ plats[118] = Platform(ceiling, -100, -100)
 if(characterName == 'blobert'):
     Dude = Character(blobert, 300, 400)
     Top = Hat(tophat, Dude)
-    blobertFist = Fist(blobFist, 300, 245, 5)
-elif(characterName == 'blob'):
-    Dude = Character(blob, 300, 400)
+    Fist = Fist(blobFist, 300, 245, 5)
+elif(characterName == 'gel'):
+    Dude = Character(gel, 300, 400)
     #Top = Hat(tophat, Dude)
-    blobertFist = Fist(blobFist, 300, 245, 5) #should be changed also
+    Fist = Fist(gelFist, 300, 245, 5) #should be changed also
 elif(characterName == 'player'):
     Dude = Character(player, 300, 400)
     #Top = Hat(tophat, Dude)
-    blobertFist = Fist(blobFist, 300, 245, 5) #should also be changed
+    Fist = Fist(stickFist, 300, 245, 5) #should also be changed
 
 while True:
     screen.blit(background, (0,0))
@@ -127,13 +129,13 @@ while True:
     if(characterName == 'blobert'):
         Top.updateLocation()
 
-    blobertFist.contactPlayer(Dude)
-    blobertFist.updateLocation()
+    Fist.contactPlayer(Dude)
+    Fist.updateLocation()
 
     screen.blit(Dude.image, Dude.rect)
     if(characterName == 'blobert'):
         screen.blit(Top.image, Top.rect)
-    screen.blit(blobertFist.image, blobertFist.rect)
+    screen.blit(Fist.image, Fist.rect)
 
     pygame.display.update()
     pygame.event.pump()
