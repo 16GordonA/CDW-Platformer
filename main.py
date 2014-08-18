@@ -4,6 +4,7 @@ from pygame.locals import *
 from Platform import Platform
 from Character import Character
 from Hat import Hat
+from Weapon import *
 
 '''
 main.py
@@ -26,11 +27,14 @@ wall = pygame.image.load('Images/wall.png')
 ceiling = pygame.image.load('Images/Ceiling.png')
 blob = pygame.image.load('Images/Blob Player.png')
 blobert = pygame.image.load('Images/Blobert.png')
+
 tophat = pygame.image.load('Images/topHat.png')
 
 sword = pygame.image.load('Weapon Pics/Sword.png')
 dagger = pygame.image.load('Weapon Pics/Dagger.png')
 spear = pygame.image.load('Weapon Pics/Spear.png')
+
+blobFist = pygame.image.load('Weapon Pics/blobertFist.png')
 
 plats = []
 for i in range(119):
@@ -82,8 +86,9 @@ plats[116] = Platform(wall, -5, -125)
 plats[117] = Platform(wall, 600, -125)
 plats[118] = Platform(ceiling, -100, -100)
 
-Dude = Character(blobert, 285, 400)
+Dude = Character(blobert, 300, 400)
 Top = Hat(tophat, Dude)
+blobertFist = Fist(blobFist, 300, 245, 5)
 
 while True:
     screen.blit(background, (0,0))
@@ -108,11 +113,14 @@ while True:
         screen.blit(plats[i].image, plats[i].rect)
 
     Dude.updateLocation()
-    
     Top.updateLocation()
+
+    blobertFist.contactPlayer(Dude)
+    blobertFist.updateLocation()
 
     screen.blit(Dude.image, Dude.rect)
     screen.blit(Top.image, Top.rect)
+    screen.blit(blobertFist.image, blobertFist.rect)
 
     pygame.display.update()
     pygame.event.pump()
