@@ -72,6 +72,32 @@ class Character(pygame.sprite.Sprite):
             self.platformCheck = True  # if after checking all blocks, platformCheck is still False, set land to False
 
     def updateSpeed(self, player): #name saved from Character class, can be changed later
+        if not self.land:  # Gravity
+            self.speedY += 1
+        if self.speedX != 0:  # Air Resistance when not choosing a direction
+            if self.land:  # If on the ground
+                if self.speedX > 0:  # If going right originally
+                    self.speedX /= 2
+                else:  # If going left originally
+                    self.speedX /= 2
+                    self.speedX += 1
+            else:  # If in the air
+                if self.speedX > 0:  # If going right originally
+                    self.speedX = 3 * self.speedX / 4
+                else:  # If going left originally
+                    self.speedX /= 3 * self.speedX / 4
+                    self.speedX += 1
+        
+        if(player.rect.bottom > enemy.rect.top):
+            self.move(10, "up")
+        if (player.rect.left > enemy.rect.right):  #player to enemy's right
+            self.move(5, "right")
+        elif (player.rect.right < enemy.rect.left): #player to enemy's left
+            self.move(5, "left")
+        if (player.rect.bottom > enemy.rect.top):
+            self.move(10, "up")
+        if not self.platformCheck and self.speedY == 0:
+            self.move(0, "up")
         #gets to same level as player, then walks towards player and attacks
 
     def updateLocation(self):  # Handles the movement simply / Call LAST
