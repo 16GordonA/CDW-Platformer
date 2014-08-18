@@ -95,13 +95,13 @@ class RangeWeapon(MeleeWeapon):
                 if self.owner.direction == 'R':
                     self.rect = self.rect.move(self.owner.rect.right, self.owner.rect.centery - (self.rect.height / 2))
                     if self.timer > 4:
-                        p = Projectile(self.p_image, self.rect.x, self.rect.centery, self.p_damage, self.p_name)
+                        p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2), self.p_damage, self.p_name)
                         p.setDirection(self.dir)
                         self.p_array.append(p)
                 else:
                     self.rect = self.rect.move(self.owner.rect.left - self.rect.width, self.owner.rect.centery - (self.rect.height / 2))
                     if self.timer > 4:
-                        p = Projectile(self.p_image, self.rect.x, self.rect.centery, self.p_damage, self.p_name)
+                        p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2), self.p_damage, self.p_name)
                         p.setDirection(self.dir)
                         self.p_array.append(p)
             if self.owner.Item != self.name:

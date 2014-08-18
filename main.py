@@ -41,7 +41,7 @@ stickFist = pygame.image.load('Weapon Pics/Stick Fist.png')
 bow = pygame.image.load('Weapon Pics/Bow.png')
 arrow = pygame.image.load('Weapon Pics/Arrow.png')
 
-characterName = 'gel'  # blobert, gel or player
+characterName = 'blobert'  # blobert, gel or player
 
 
 # read in plats from arena file
@@ -83,7 +83,7 @@ Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
 Dagger = MeleeWeapon(dagger, 450, 65, 10, "Dagger")
 Spear = MeleeWeapon(spear, 15, 210, 5, "Spear")
 HandGun = RangeWeapon(blobFist, stickFist, 570, 60, 2, "HandGun", "Hand")
-BowAndArrow = RangeWeapon(bow, arrow, 15, 435, 3, "Bow and Arrow", "Arrow")
+BowAndArrow = RangeWeapon(bow, arrow, 15, 425, 3, "Bow and Arrow", "Arrow")
 
 
 weapons = [Fist, Sword, Dagger, Spear, HandGun, BowAndArrow]
