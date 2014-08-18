@@ -128,7 +128,7 @@ while True:
             if e.platformCheck:
                 e.land = True
 
-    Dude.updateLocation()
+    Dude.update(key, all_plats)
     for w in all_weapons.sprites():
         if(w.owner == Dude):
             w.setDirection(Dude.direction)
