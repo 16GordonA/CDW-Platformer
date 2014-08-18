@@ -28,6 +28,10 @@ blob = pygame.image.load('Images/Blob Player.png')
 blobert = pygame.image.load('Images/Blobert.png')
 tophat = pygame.image.load('Images/topHat.png')
 
+sword = pygame.image.load('Weapon Pics/Sword.png')
+dagger = pygame.image.load('Weapon Pics/Dagger.png')
+spear = pygame.image.load('Weapon Pics/Spear.png')
+
 plats = []
 for i in range(119):
     plats.append(i)
