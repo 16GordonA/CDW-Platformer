@@ -38,7 +38,7 @@ blobFist = pygame.image.load('Weapon Pics/blobertFist.png')
 gelFist = pygame.image.load('Weapon Pics/Gel Fist.png')
 stickFist = pygame.image.load('Weapon Pics/Stick Fist.png')
 
-characterName = 'player' #blobert, gel or player
+characterName = 'gel' #blobert, gel or player
 
 plats = []
 for i in range(119):
@@ -103,6 +103,8 @@ elif(characterName == 'player'):
     #Top = Hat(tophat, Dude)
     Fist = Fist(stickFist, 300, 245, 5) #should also be changed
 
+
+
 while True:
     screen.blit(background, (0,0))
     
@@ -116,6 +118,9 @@ while True:
     
     if key[K_ESCAPE] == True:
         sys.exit()
+
+    if key[K_SPACE] == True:
+        Fist.activate()
 
     for i in range(118):
         Dude.checkCollision(plats[i])
@@ -131,6 +136,7 @@ while True:
 
     Fist.contactPlayer(Dude)
     Fist.updateLocation()
+    Fist.tickTimer()
 
     screen.blit(Dude.image, Dude.rect)
     if(characterName == 'blobert'):
