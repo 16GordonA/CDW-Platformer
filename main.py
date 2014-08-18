@@ -19,6 +19,7 @@ size = SCREEN_WIDTH, SCREEN_HEIGHT
 screen = pygame.display.set_mode(size)
 
 background = pygame.image.load('Images/background.png')
+background2 = pygame.image.load('Images/night.png')
 grass = pygame.image.load('Images/Grass tile.png')
 ice = pygame.image.load('Images/Ice tile.png')
 brick = pygame.image.load('Images/Brick tile.png')
@@ -93,20 +94,24 @@ plats[118] = Platform(ceiling, -100, -100)
 if(characterName == 'blobert'):
     Dude = Character(blobert, 300, 400)
     Top = Hat(tophat, Dude)
-    Fist = Fist(blobFist, 300, 245, 5)
+    Fist = MeleeWeapon(blobFist, 300, 245, 5)
 elif(characterName == 'gel'):
     Dude = Character(gel, 300, 400)
     #Top = Hat(tophat, Dude)
-    Fist = Fist(gelFist, 300, 245, 5) #should be changed also
+    Fist = MeleeWeapon(gelFist, 300, 245, 5) 
 elif(characterName == 'player'):
     Dude = Character(player, 300, 400)
     #Top = Hat(tophat, Dude)
-    Fist = Fist(stickFist, 300, 245, 5) #should also be changed
+    Fist = MeleeWeapon(stickFist, 300, 245, 5) 
+
+Sword = MeleeWeapon(sword, 150, 65, 8)
+Dagger = MeleeWeapon(dagger, 450, 65, 10)
 
 
+weapons = [Fist, Sword, Dagger]
 
 while True:
-    screen.blit(background, (0,0))
+    screen.blit(background2, (0,0))
     
     Dude.platformCheck = False
 
@@ -120,7 +125,8 @@ while True:
         sys.exit()
 
     if key[K_SPACE] == True:
-        Fist.activate()
+        for i in range(len(weapons)):
+            weapons[i].activate()
 
     for i in range(118):
         Dude.checkCollision(plats[i])
@@ -134,14 +140,19 @@ while True:
     if(characterName == 'blobert'):
         Top.updateLocation()
 
-    Fist.contactPlayer(Dude)
-    Fist.updateLocation()
-    Fist.tickTimer()
+    
+    for i in range(len(weapons)):
+        weapons[i].contactPlayer(Dude)
+        weapons[i].updateLocation()
+        weapons[i].tickTimer()
 
     screen.blit(Dude.image, Dude.rect)
     if(characterName == 'blobert'):
         screen.blit(Top.image, Top.rect)
-    screen.blit(Fist.image, Fist.rect)
+        
+    for i in range(len(weapons)):
+        screen.blit(weapons[i].image, weapons[i].rect)
+
 
     pygame.display.update()
     pygame.event.pump()

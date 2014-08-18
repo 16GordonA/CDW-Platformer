@@ -2,7 +2,7 @@ import pygame, sys
 from pygame.locals import *
 
 
-class Fist(pygame.sprite.Sprite):
+class MeleeWeapon(pygame.sprite.Sprite):
     
     def __init__(self, image, startX, startY, damage):
         pygame.sprite.Sprite.__init__(self)
