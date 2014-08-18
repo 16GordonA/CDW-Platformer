@@ -50,10 +50,9 @@ plat_strings[4] = "ggggggeegggggeeggggg"
 plat_strings[5] = "eeeegggggeegggggeeee"
 plat_strings[6] = "bbbeebbbbbbbbbbeebbb"
 plat_strings[7] = "bbbbbbbbbbbbbbbbbbbb"
-walls = []
-walls.append(Platform(wall, -5, -125))
-walls.append(Platform(wall, 600, -125))
-walls.append(Platform(ceiling, -100, -100))
+plats.append(Platform(wall, -5, -125))
+plats.append(Platform(wall, 600, -125))
+plats.append(Platform(ceiling, -100, -100))
 for p in range(len(plat_strings)):
     for c in range(len(plat_strings[p])):
         img = None
