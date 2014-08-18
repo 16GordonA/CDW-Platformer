@@ -1,10 +1,6 @@
-'''
-Created on Aug 17, 2014
-
-@author: Akiva and Dan(made this comment)
-'''
 import pygame, sys
 from pygame.locals import *
+all_chars = pygame.sprite.Group()
 
 
 class Character(pygame.sprite.Sprite):
@@ -20,6 +16,7 @@ class Character(pygame.sprite.Sprite):
         self.direction = 'R'  # direction (L,R)
         self.alive = True
         self.HP = 100
+        pygame.sprite.Sprite.__init__(self, all_chars)
         
     def setHP(self, newHP):
         self.HP = newHP

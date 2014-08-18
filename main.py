@@ -14,9 +14,11 @@ Creates the outermost frame for the world
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 459  # only to show bottommost layer, for all intensive purposes, the height is 450 pixels
 
+"""
+Graphics
+"""
 size = SCREEN_WIDTH, SCREEN_HEIGHT
 screen = pygame.display.set_mode(size)
-
 background = pygame.image.load('Images/background.png')
 background2 = pygame.image.load('Images/night.png')
 grass = pygame.image.load('Images/Grass tile.png')
@@ -42,6 +44,16 @@ bow = pygame.image.load('Weapon Pics/Bow.png')
 arrow = pygame.image.load('Weapon Pics/Arrow.png')
 
 characterName = 'gel'  # blobert, gel or player
+
+"""
+Group Declarations
+"""
+
+all_plats = pygame.sprite.Group()
+all_weapons = pygame.sprite.Group()
+all_projs = pygame.sprite.Group()
+all_chars = pygame.sprite.Group()
+all_hats = pygame.sprite.Group()
 
 
 # read in plats from arena file
@@ -86,8 +98,6 @@ HandGun = RangeWeapon(blobFist, stickFist, 570, 60, 2, "HandGun", "Hand")
 BowAndArrow = RangeWeapon(bow, arrow, 15, 425, 3, "Bow and Arrow", "Arrow")
 
 
-weapons = [Fist, Sword, Dagger, Spear, HandGun, BowAndArrow]
-
 while True:
     time.sleep(.01)
     screen.blit(background2, (0, 0))
@@ -101,10 +111,10 @@ while True:
         sys.exit()
 
     if key[K_SPACE]:
-        for i in range(len(weapons)):
-            weapons[i].activate()
+        for w in all_weapons.sprites:
+            w.activate()
 
-    for i in range(len(plats)):
+    for p in all_plats:
         Dude.checkCollision(plats[i])
         Dude.platformCheck = False
         Dude.checkOnPlatform(plats[i])
@@ -130,8 +140,8 @@ while True:
     for i in range(len(weapons)):
         screen.blit(weapons[i].image, weapons[i].rect)
         if(isinstance(weapons[i], RangeWeapon)):
-           for j in range(len(weapons[i].p_array)):
-               screen.blit(weapons[i].p_array[j].image, weapons[i].p_array[j].rect)
+            for j in range(len(weapons[i].p_array)):
+                screen.blit(weapons[i].p_array[j].image, weapons[i].p_array[j].rect)
 
     pygame.display.update()
     pygame.event.pump()

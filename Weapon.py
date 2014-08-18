@@ -1,9 +1,11 @@
 import pygame, sys
 from pygame.locals import *
 
+all_weapons = pygame.sprite.Group()
+all_projs = pygame.sprite.Group()
+
 
 class MeleeWeapon(pygame.sprite.Sprite):
-    
     def __init__(self, image, startX, startY, damage, name):
         pygame.sprite.Sprite.__init__(self)
         self.image = image.convert_alpha()  # transparent image
@@ -18,7 +20,8 @@ class MeleeWeapon(pygame.sprite.Sprite):
         self.activated = False
         self.name = name
         self.dir = 'R'  # direction (L, R)
-    
+        pygame.sprite.Sprite.__init__(self, all_weapons)
+
     def updateLocation(self):  # Only used when it has an owner and is activated
         if self.owner is not None:
             if self.activated:
@@ -87,6 +90,7 @@ class RangeWeapon(MeleeWeapon):
         self.dir = 'R'  # direction (L, R)
         self.p_array = []  # set of projectiles
         self.cooldownMax = 10
+        pygame.sprite.Sprite.__init__(self, all_weapons)
         
     def updateLocation(self):  # Only used when it has an owner and is activated
         if self.owner is not None:
@@ -132,3 +136,4 @@ class Projectile(MeleeWeapon):
             self.rect = self.rect.move(5, 0)
         else:
             self.rect = self.rect.move(-5, 0)
+        pygame.sprite.Sprite.__init__(self, all_projs)
