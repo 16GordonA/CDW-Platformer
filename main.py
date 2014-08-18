@@ -45,7 +45,7 @@ stickFist = pygame.image.load('Weapon Pics/Stick Fist.png')
 bow = pygame.image.load('Weapon Pics/Bow.png')
 arrow = pygame.image.load('Weapon Pics/Arrow.png')
 
-characterName = 'gel'  # blobert, gel or player
+characterName = 'blobert'  # blobert, gel or player
 
 # read in plats from arena file
 f = open("arena_1.txt", "r")
@@ -106,10 +106,9 @@ while True:
         e.platformCheck = False
 
     key = pygame.key.get_pressed()
-
-    Dude.updateSpeed(key)
     for e in all_enemies.sprites():
         e.updateSpeed(Dude)
+    Dude.update(key, all_plats)
 
     if key[K_ESCAPE]:
         sys.exit()
@@ -122,18 +121,12 @@ while True:
         print Enemy1.HP
 
     for p in all_plats:
-        Dude.checkCollision(p)
-        Dude.platformCheck = False
-        Dude.checkOnPlatform(p)
-        if Dude.platformCheck:
-            Dude.land = True
-            
         for e in all_enemies.sprites():
             e.checkCollision(p)
             e.platformCheck = False
             e.checkOnPlatform(p)
             if e.platformCheck:
-                e.land = True    
+                e.land = True
 
     Dude.updateLocation()
     for w in all_weapons.sprites():

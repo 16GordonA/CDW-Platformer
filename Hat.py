@@ -5,7 +5,7 @@ all_hats = pygame.sprite.Group()
 
 
 class Hat(pygame.sprite.Sprite):
-    def __init__(self, image, owner, groups):
+    def __init__(self, image, owner):
         pygame.sprite.Sprite.__init__(self)
         self.image = image.convert_alpha()  # transparent image
         self.rect = self.image.get_rect().move(owner.rect.centerx - 6, owner.rect.top - 12)  # rect is for blitting
