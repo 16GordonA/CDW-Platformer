@@ -38,7 +38,7 @@ blobFist = pygame.image.load('Weapon Pics/blobertFist.png')
 gelFist = pygame.image.load('Weapon Pics/Gel Fist.png')
 stickFist = pygame.image.load('Weapon Pics/Stick Fist.png')
 
-characterName = 'player'  # blobert, gel or player
+characterName = 'gel'  # blobert, gel or player
 
 plats = []
 for i in range(119):
@@ -105,12 +105,13 @@ elif(characterName == 'player'):
 Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
 Dagger = MeleeWeapon(dagger, 450, 65, 10, "Dagger")
 Spear = MeleeWeapon(spear, 15, 210, 5, "Spear")
-FistGun = RangeWeapon(dagger, stickFist, 570, 60, 5, "FistGun", "Fist")
+FistGun = RangeWeapon(blobFist, stickFist, 570, 60, 2, "FistGun", "Fist")
 
 
 weapons = [Fist, Sword, Dagger, Spear, FistGun]
 
 while True:
+    time.sleep(.01)
     screen.blit(background2, (0, 0))
     Dude.platformCheck = False
 
@@ -153,7 +154,6 @@ while True:
         if(isinstance(weapons[i], RangeWeapon)):
            for j in range(len(weapons[i].p_array)):
                screen.blit(weapons[i].p_array[j].image, weapons[i].p_array[j].rect)
-               print "hi"
 
     pygame.display.update()
     pygame.event.pump()
