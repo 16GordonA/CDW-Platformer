@@ -38,6 +38,9 @@ blobFist = pygame.image.load('Weapon Pics/blobertFist.png')
 gelFist = pygame.image.load('Weapon Pics/Gel Fist.png')
 stickFist = pygame.image.load('Weapon Pics/Stick Fist.png')
 
+bow = pygame.image.load('Weapon Pics/Bow.png')
+arrow = pygame.image.load('Weapon Pics/Arrow.png')
+
 characterName = 'gel'  # blobert, gel or player
 
 
@@ -47,6 +50,7 @@ plats = []
 plat_strings = []
 for i in range(9):  # 9 IS THE LENGTH OF PLAT - NEEDS TO BE CHANGED IF NUMBER OF ROWS CHANGES
     plat_strings.append(f.readline())
+plat_strings.remove(plat_strings[0])
 plats.append(Platform(wall, -5, -125))
 plats.append(Platform(wall, 600, -125))
 plats.append(Platform(ceiling, -100, -100))
@@ -78,10 +82,11 @@ elif(characterName == 'player'):
 Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
 Dagger = MeleeWeapon(dagger, 450, 65, 10, "Dagger")
 Spear = MeleeWeapon(spear, 15, 210, 5, "Spear")
-FistGun = RangeWeapon(blobFist, stickFist, 570, 60, 2, "FistGun", "Fist")
+HandGun = RangeWeapon(blobFist, stickFist, 570, 60, 2, "HandGun", "Hand")
+BowAndArrow = RangeWeapon(bow, arrow, 15, 435, 3, "Bow and Arrow", "Arrow")
 
 
-weapons = [Fist, Sword, Dagger, Spear, FistGun]
+weapons = [Fist, Sword, Dagger, Spear, HandGun, BowAndArrow]
 
 while True:
     time.sleep(.01)
