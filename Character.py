@@ -109,8 +109,7 @@ class Character(pygame.sprite.Sprite):
         self.rect = self.rect.move(self.speedX, self.speedY)
 
     def updateItem(self, keyPressed):
-        if keyPressed[K_g]:
-            self.item = None
+        pass
 
     def refreshItem(self, nm):
         self.item = nm
