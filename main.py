@@ -1,5 +1,6 @@
 import pygame, sys, random, time, pygame.mixer, pygame.font
 from pygame.locals import *
+from pygame.font import *
 
 from Platform import *
 from Character import *
@@ -14,6 +15,9 @@ Creates the outermost frame for the world
 
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 459  # only to show bottommost layer, for all intensive purposes, the height is 450 pixels
+
+pygame.font.init()
+myFont = pygame.font.SysFont("Comic Sans", 18)
 
 """
 Graphics
@@ -149,5 +153,11 @@ while True:
     for e in all_enemies:
         pygame.sprite.spritecollide(e, all_projs, True)
 
+    P1health = myFont.render("Player Health: "+str(Dude.HP) + "%", 1,(255,0,0))
+    screen.blit(P1health, (10, 10))
+
+    E1health = myFont.render("Enemy1 Health: " + str(Enemy1.HP) + "%", 1, (255, 0 ,0))
+    screen.blit(E1health, (465, 10))
+    
     pygame.display.update()
     pygame.event.pump()
