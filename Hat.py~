@@ -1,6 +1,0 @@
-
-
-
-
-
-class Hat(pygame.sprite.sprite)

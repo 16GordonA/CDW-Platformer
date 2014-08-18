@@ -1,14 +1,10 @@
-'''
-Created on Aug 18, 2014
-
-@author: Akiva 
-'''
 import pygame, sys
 from pygame.locals import *
 from Weapon import *
 from Character import *
 
 all_enemies = pygame.sprite.Group()
+
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, image, startX, startY, name):
@@ -24,7 +20,18 @@ class Enemy(pygame.sprite.Sprite):
         self.alive = True
         self.HP = 100
         pygame.sprite.Sprite.__init__(self, all_enemies)
-    
+
+    def update(self, keyPressed, all_plats):
+        self.updateSpeed(keyPressed)
+        for p in all_plats:
+            self.checkCollision(p)
+            self.platformCheck = False
+            self.checkOnPlatform(p)
+            if self.platformCheck:
+                self.land = True
+        self.updateLocation()
+        self.updateItem(keyPressed)
+
     def setHP(self, newHP):
         self.HP = newHP
         if(self.HP <= 0):
@@ -32,7 +39,6 @@ class Enemy(pygame.sprite.Sprite):
             self.alive = False
             poof = pygame.image.load('Images/Poof.png')
             self.image = poof.convert_alpha()
-            
     
     def move(self, speed, direction):  # changes speed on key press / Call after key event is handled
         if direction == "up" and self.land:
@@ -76,7 +82,7 @@ class Enemy(pygame.sprite.Sprite):
         else:
             self.platformCheck = True  # if after checking all blocks, platformCheck is still False, set land to False
 
-    def updateSpeed(self, player): #name saved from Character class, can be changed later
+    def updateSpeed(self, player):  # name saved from Character class, can be changed later
         if not self.land:  # Gravity
             self.speedY += 1
         if self.speedX != 0:  # Air Resistance when not choosing a direction
@@ -93,11 +99,11 @@ class Enemy(pygame.sprite.Sprite):
                     self.speedX /= 3 * self.speedX / 4
                     self.speedX += 1
         
-        if(player.rect.bottom > self.rect.top):
+        if player.rect.bottom > self.rect.top:
             self.move(10, "up")
-        if (player.rect.left > self.rect.right):  #player to enemy's right
+        if player.rect.left > self.rect.right:  # player to enemy's right
             self.move(5, "right")
-        elif (player.rect.right < self.rect.left): #player to enemy's left
+        elif player.rect.right < self.rect.left:  # player to enemy's left
             self.move(5, "left")
         if (player.rect.bottom > self.rect.top):
             self.move(10, "up")
