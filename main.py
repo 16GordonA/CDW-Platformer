@@ -40,16 +40,13 @@ stickFist = pygame.image.load('Weapon Pics/Stick Fist.png')
 
 characterName = 'gel'  # blobert, gel or player
 
+
+# read in plats from arena file
+f = open("arena_1.txt", "r")
 plats = []
-plat_strings = [["eeeeeeeeeeeeeeeeeeee" for i in range(20)] for j in range(8)]
-plat_strings[0] = "eeeiiiiieeeeiiiiieee"
-plat_strings[1] = "eeiiiiiiiiiiiiiiiiee"
-plat_strings[2] = "iiiiiiieeeeeeiiiiiii"
-plat_strings[3] = "eeeeggggggggggggeeee"
-plat_strings[4] = "ggggggeegggggeeggggg"
-plat_strings[5] = "eeeegggggeegggggeeee"
-plat_strings[6] = "bbbeebbbbbbbbbbeebbb"
-plat_strings[7] = "bbbbbbbbbbbbbbbbbbbb"
+plat_strings = []
+for i in range(9):  # 9 IS THE LENGTH OF PLAT - NEEDS TO BE CHANGED IF NUMBER OF ROWS CHANGES
+    plat_strings.append(f.readline())
 plats.append(Platform(wall, -5, -125))
 plats.append(Platform(wall, 600, -125))
 plats.append(Platform(ceiling, -100, -100))
