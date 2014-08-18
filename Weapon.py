@@ -19,12 +19,13 @@ class MeleeWeapon(pygame.sprite.Sprite):
         self.dir = 'R' # direction (L, R)
     
     def updateLocation(self):  # Only used when it has an owner and is activated
-        if self.owner != None and self.activated:
-            self.rect = self.rect.move(-1 * self.rect.x, -1 * self.rect.y)
-            if(self.owner.direction == 'R'):
-                self.rect = self.rect.move(self.owner.rect.right, self.owner.rect.centery - (self.rect.height / 2))
-            else:
-                self.rect = self.rect.move(self.owner.rect.left - self.rect.width, self.owner.rect.centery - (self.rect.height/2))
+        if self.owner != None:
+            if self.activated:
+                self.rect = self.rect.move(-1 * self.rect.x, -1 * self.rect.y)
+                if(self.owner.direction == 'R'):
+                    self.rect = self.rect.move(self.owner.rect.right, self.owner.rect.centery - (self.rect.height / 2))
+                else:
+                    self.rect = self.rect.move(self.owner.rect.left - self.rect.width, self.owner.rect.centery - (self.rect.height/2))
             if self.owner.Item != self.name:
                 self.owner = None
                 self.timer = 0
