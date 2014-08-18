@@ -40,9 +40,19 @@ class MeleeWeapon(pygame.sprite.Sprite):
 
     def contactPlayer(self, target):
         if self.rect.bottom > target.rect.top and self.rect.top < target.rect.bottom and self.rect.right > target.rect.left and self.rect.left < target.rect.right and self.owner is None:
-            self.owner = target
-            self.rect = self.rect.move(999, 999)
-            self.owner.refreshItem(self.name)
+            if(self.owner != None and self.owner != target):
+                "hyah"
+                target.setHP(target.HP - self.dmg)
+                self.rect = self.rect.move(999, 999)
+            else:   
+                self.owner = target
+                self.rect = self.rect.move(999, 999)
+                self.owner.refreshItem(self.name)
+            
+    def setOwner(self, target): #for gaining weapons without going near them
+        self.owner = target
+        self.rect = self.rect.move(999, 999)
+        self.owner.refreshItem(self.name)
 
     def activate(self):
         if self.cooldown == 0:
@@ -70,7 +80,7 @@ class MeleeWeapon(pygame.sprite.Sprite):
 
 
 class RangeWeapon(MeleeWeapon):
-    def __init__(self, image, p_image, startX, startY, damage, name, p_name):
+    def __init__(self, image, p_image, startX, startY, damage, name, p_name, CDMax):
         pygame.sprite.Sprite.__init__(self)
         self.image = image.convert_alpha()  # transparent image
         self.damage = 0
@@ -89,7 +99,7 @@ class RangeWeapon(MeleeWeapon):
         self.name = name
         self.dir = 'R'  # direction (L, R)
         self.p_array = []  # set of projectiles
-        self.cooldownMax = 10
+        self.cooldownMax = CDMax
         pygame.sprite.Sprite.__init__(self, all_weapons)
         
     def updateLocation(self):  # Only used when it has an owner and is activated
@@ -137,3 +147,8 @@ class Projectile(MeleeWeapon):
         else:
             self.rect = self.rect.move(-5, 0)
         pygame.sprite.Sprite.__init__(self, all_projs)
+        
+    def contactPlayer(self, target):
+        if self.rect.bottom > target.rect.top and self.rect.top < target.rect.bottom and self.rect.right > target.rect.left and self.rect.left < target.rect.right and self.owner is None:
+            target.setHP(target.HP - self.dmg)
+            self.rect = self.rect.move(999, 999)

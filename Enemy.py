@@ -8,8 +8,9 @@ from pygame.locals import *
 from Weapon import *
 from Character import *
 
+all_enemies = pygame.sprite.Group()
 
-class Character(pygame.sprite.Sprite):
+class Enemy(pygame.sprite.Sprite):
     def __init__(self, image, startX, startY, name):
         pygame.sprite.Sprite.__init__(self)
         self.image = image.convert_alpha()  # transparent image
@@ -22,11 +23,15 @@ class Character(pygame.sprite.Sprite):
         self.direction = 'R'  # direction (L,R)
         self.alive = True
         self.HP = 100
+        pygame.sprite.Sprite.__init__(self, all_enemies)
     
     def setHP(self, newHP):
         self.HP = newHP
         if(self.HP <= 0):
+            self.HP = 0
             self.alive = False
+            poof = pygame.image.load('Images/Poof.png')
+            self.image = poof.convert_alpha()
             
     
     def move(self, speed, direction):  # changes speed on key press / Call after key event is handled
@@ -88,13 +93,13 @@ class Character(pygame.sprite.Sprite):
                     self.speedX /= 3 * self.speedX / 4
                     self.speedX += 1
         
-        if(player.rect.bottom > enemy.rect.top):
+        if(player.rect.bottom > self.rect.top):
             self.move(10, "up")
-        if (player.rect.left > enemy.rect.right):  #player to enemy's right
+        if (player.rect.left > self.rect.right):  #player to enemy's right
             self.move(5, "right")
-        elif (player.rect.right < enemy.rect.left): #player to enemy's left
+        elif (player.rect.right < self.rect.left): #player to enemy's left
             self.move(5, "left")
-        if (player.rect.bottom > enemy.rect.top):
+        if (player.rect.bottom > self.rect.top):
             self.move(10, "up")
         if not self.platformCheck and self.speedY == 0:
             self.move(0, "up")

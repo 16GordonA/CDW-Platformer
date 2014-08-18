@@ -5,6 +5,7 @@ from Platform import *
 from Character import *
 from Hat import *
 from Weapon import *
+from Enemy import *
 
 '''
 main.py
@@ -29,7 +30,7 @@ wall = pygame.image.load('Images/wall.png')
 ceiling = pygame.image.load('Images/Ceiling.png')
 gel = pygame.image.load('Images/Blob Player.png')
 blobert = pygame.image.load('Images/Blobert.png')
-enemy = pygame.image.load('Enemy.png')
+enemy = pygame.image.load('Images/Enemy.png')
 
 tophat = pygame.image.load('Images/topHat.png')
 
@@ -71,21 +72,25 @@ all_plats.add(Platform(ceiling, -100, -100))
 if characterName == 'blobert':
     Dude = Character(blobert, 300, 400)
     Top = Hat(tophat, Dude)
-    Fist = MeleeWeapon(blobFist, 300, 245, 5, "blobFist")
+    Fist = MeleeWeapon(blobFist, 300, 425, 5, "blobFist")
 elif characterName == 'gel':
-    Dude = Character(enemy, 300, 400)
+    Dude = Character(gel, 300, 400)
     #Top = Hat(tophat, Dude)
-    Fist = MeleeWeapon(gelFist, 300, 245, 5, "gelFist")
+    Fist = MeleeWeapon(gelFist, 300, 425, 5, "gelFist")
 elif characterName == 'player':
     Dude = Character(player, 300, 400)
     #Top = Hat(tophat, Dude)
-    Fist = MeleeWeapon(stickFist, 300, 245, 5, "stickFist")
+    Fist = MeleeWeapon(stickFist, 300, 425, 5, "stickFist")
+    
+Enemy1 = Enemy(enemy, 285, 60, "vampire")
+    
+Fist.setOwner(Dude)
 
 Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
 Dagger = MeleeWeapon(dagger, 450, 65, 10, "Dagger")
 Spear = MeleeWeapon(spear, 15, 210, 5, "Spear")
-HandGun = RangeWeapon(blobFist, stickFist, 570, 60, 2, "HandGun", "Hand")
-BowAndArrow = RangeWeapon(bow, arrow, 15, 425, 3, "Bow and Arrow", "Arrow")
+HandGun = RangeWeapon(blobFist, stickFist, 570, 60, 2, "HandGun", "Hand", 5)
+BowAndArrow = RangeWeapon(bow, arrow, 15, 425, 3, "Bow and Arrow", "Arrow", 1)
 
 while True:
     time.sleep(.01)
@@ -95,11 +100,16 @@ while True:
     all_projs.draw(screen)
     all_chars.draw(screen)
     all_hats.draw(screen)
+    all_enemies.draw(screen)
     Dude.platformCheck = False
+    for e in all_enemies.sprites():
+        e.platformCheck = False
 
     key = pygame.key.get_pressed()
 
     Dude.updateSpeed(key)
+    for e in all_enemies.sprites():
+        e.updateSpeed(Dude)
 
     if key[K_ESCAPE]:
         sys.exit()
@@ -107,6 +117,9 @@ while True:
     if key[K_SPACE]:
         for w in all_weapons.sprites():
             w.activate()
+    
+    if key[K_h]:
+        print Enemy1.HP
 
     for p in all_plats:
         Dude.checkCollision(p)
@@ -114,6 +127,13 @@ while True:
         Dude.checkOnPlatform(p)
         if Dude.platformCheck:
             Dude.land = True
+            
+        for e in all_enemies.sprites():
+            e.checkCollision(p)
+            e.platformCheck = False
+            e.checkOnPlatform(p)
+            if e.platformCheck:
+                e.land = True    
 
     Dude.updateLocation()
     for w in all_weapons.sprites():
@@ -124,6 +144,8 @@ while True:
 
     for w in all_weapons.sprites():
         w.contactPlayer(Dude)
+        for e in all_enemies.sprites():
+            w.contactPlayer(e)
         w.updateLocation()
         w.tickTimer()
 
@@ -131,6 +153,8 @@ while True:
         pygame.sprite.spritecollide(p, all_projs, True)
     for c in all_chars:
         pygame.sprite.spritecollide(c, all_projs, True)
+    for e in all_enemies:
+        pygame.sprite.spritecollide(e, all_projs, True)
 
     pygame.display.update()
     pygame.event.pump()

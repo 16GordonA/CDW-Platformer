@@ -93,6 +93,7 @@ class Character(pygame.sprite.Sprite):
             self.move(0, "up")
         if keyPressed[K_DOWN]:
             print self.rect
+            print self.HP
 
     def updateLocation(self):  # Handles the movement simply / Call LAST
         self.rect = self.rect.move(self.speedX, self.speedY)
