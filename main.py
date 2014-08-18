@@ -127,9 +127,9 @@ while True:
         w.tickTimer()
 
     for p in all_plats:
-        sprite.spritecollide(p, all_projs, True)
+        pygame.sprite.spritecollide(p, all_projs, True)
     for c in all_chars:
-        sprite.spritecollide(c, all_projs, True)
+        pygame.sprite.spritecollide(c, all_projs, True)
 
     pygame.display.update()
     pygame.event.pump()
