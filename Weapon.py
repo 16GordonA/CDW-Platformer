@@ -63,3 +63,58 @@ class MeleeWeapon(pygame.sprite.Sprite):
         else:
             self.image = pygame.transform.flip(self.image, True, False) #flips weapon horizontally
             self.dir = dir
+            
+class RangeWeapon(MeleeWeapon):
+    def __init__(self, image, p_image, startX, startY, damage, name, p_name):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = image.convert_alpha()  # transparent image
+        self.damage = 0
+        self.p_image = p_image #projectile pic
+        self.p_name = p_name #name of projectile e.g. "arrow"
+        self.p_damage = damage #impact of projectile
+        self.projectile = Projectile(p_image, startX, startY, damage, p_name) #projectile does its own stuff
+        self.rect = self.image.get_rect().move(startX, startY)  # rect is for blitting
+        self.startX = startX
+        self.startY = startY
+        self.owner = None
+        self.dmg = damage
+        self.timer = 0  # counts five times
+        self.cooldown = 0  # counts eight times starting at same time as timer
+        self.activated = False
+        self.name = name
+        self.dir = 'R' # direction (L, R)
+        self.p_array = [] #set of projectiles
+        
+    def updateLocation(self):  # Only used when it has an owner and is activated
+        if self.owner != None:
+            if self.activated:
+                self.rect = self.rect.move(-1 * self.rect.x, -1 * self.rect.y)
+                if(self.owner.direction == 'R'):
+                    self.rect = self.rect.move(self.owner.rect.right, self.owner.rect.centery - (self.rect.height / 2))
+                    p = Projectile(self.p_image, self.rect.x, self.rect.centery, self.p_damage, self.p_name)
+                    p.setDirection(self.dir)
+                    self.p_array.append(p)
+                else:
+                    self.rect = self.rect.move(self.owner.rect.left - self.rect.width, self.owner.rect.centery - (self.rect.height/2))
+                    p = Projectile(self.p_image, self.rect.x, self.rect.centery, self.p_damage, self.p_name)
+                    p.setDirection(self.dir)
+                    self.p_array.append(p)
+            if self.owner.Item != self.name:
+                self.owner = None
+                self.timer = 0
+                self.cooldown = 0
+                self.activated = False
+                self.rect = self.rect.move(-1 * self.rect.x, -1 * self.rect.y)
+                self.rect = self.rect.move(self.startX, self.startY)
+        for i in range(len(self.p_array)):
+            self.p_array[i].updateLocation
+    
+
+class Projectile(MeleeWeapon):
+    
+    def updateLocation(self):  # moves
+        if self.dir == 'R':
+            self.rect = self.rect.move(5, 0)
+        else:
+            self.rect = self.rect.move(-5,0)
+            
