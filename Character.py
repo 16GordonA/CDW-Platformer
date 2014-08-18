@@ -18,16 +18,21 @@ class Character(pygame.sprite.Sprite):
         self.HP = 100
         pygame.sprite.Sprite.__init__(self, all_chars)
 
+    def setHP(self, hp):
+        self.HP = hp
+        if (self.HP <= 0):
+            self.alive = False
+
     def update(self, keyPressed, all_plats):
         self.updateSpeed(keyPressed)
         for p in all_plats:
-            Dude.checkCollision(p)
-            Dude.platformCheck = False
-            Dude.checkOnPlatform(p)
-            if Dude.platformCheck:
-                Dude.land = True
+            self.checkCollision(p)
+            self.platformCheck = False
+            self.checkOnPlatform(p)
+            if self.platformCheck:
+                self.land = True
         self.updateLocation()
-        self.updateItem()
+        self.updateItem(keyPressed)
 
     #probably something else should go in here too about removing sprite from game or changing image
     def move(self, speed, direction):  # changes speed on key press / Call after key event is handled
@@ -103,6 +108,9 @@ class Character(pygame.sprite.Sprite):
     def updateLocation(self):  # Handles the movement simply / Call LAST
         self.rect = self.rect.move(self.speedX, self.speedY)
 
-    def updateItem(self):
+    def updateItem(self, keyPressed):
         if keyPressed[K_g]:
             self.item = None
+
+    def refreshItem(self, nm):
+        self.item = nm
