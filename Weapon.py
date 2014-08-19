@@ -163,10 +163,14 @@ class Projectile(MeleeWeapon):
         if self.rect.left > 1500 or self.rect.right < -500:
             if self.dir == 'R':
                 self.rect = self.rect.move(-6, 0) #moves backwards so net movement = 0
+                self.name = "gone"
             elif self.dir == 'L':
                 self.rect = self.rect.move(6, 0)
+                self.name = "gone"
+        
             all_projs.remove(self)
-        pygame.sprite.Sprite.__init__(self, all_projs)
+            all_weapons.remove(self)
+ 
 
     def contactPlayer(self, target):
         if self.rect.bottom > target.rect.top and self.rect.top < target.rect.bottom and self.rect.right > target.rect.left and self.rect.left < target.rect.right and self.owner is None:
