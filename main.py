@@ -121,7 +121,7 @@ BowAndArrow = RangeWeapon(bow, arrow, 15, 425, 3, "Bow and Arrow", "Arrow", 10)
 print "Complete!"
 print "Game Beginning..."
 
-while True:
+while Dude.alive and Enemy1.alive:
     #time.sleep(.01)
     screen.blit(background2, (0, 0))
     all_weapons.draw(screen)
@@ -191,3 +191,12 @@ while True:
     
     pygame.display.update()
     pygame.event.pump()
+    
+if Dude.alive:
+    print "Dude Wins!"
+    
+elif Enemy1.alive:
+    print "Vampiric Gel Wins!"
+    
+else:
+    print "It was a tie!"
