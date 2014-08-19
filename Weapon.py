@@ -54,15 +54,15 @@ class MeleeWeapon(pygame.sprite.Sprite):
 
     def contactPlayer(self, target):
         if self.rect.bottom > target.rect.top and self.rect.top < target.rect.bottom and self.rect.right > target.rect.left and self.rect.left < target.rect.right and self.owner is None:
-            if self.owner is not None and self.owner is not target:
-                "hyah"
+            if self.owner is not None and self.owner is not target: #melee damage does not work
+                print "hyah"
                 target.setHP(target.HP - self.dmg)
                 self.rect = self.rect.move(999, 999)
             else:
                 self.owner = target
                 self.rect = self.rect.move(999, 999)
                 self.owner.refreshItem(self.name)
-
+                
     def setOwner(self, target):  # for gaining weapons without going near them
         self.owner = target
         self.rect = self.rect.move(999, 999)
@@ -81,7 +81,7 @@ class MeleeWeapon(pygame.sprite.Sprite):
             if self.timer > 0:
                 self.timer -= 1
             if self.timer == 0 and self.activated:
-                self.activated = False  # lol guys its = not ==
+                self.activated = False 
                 if self.rect.x < 700:
                     self.rect = self.rect.move(999, 999)
     

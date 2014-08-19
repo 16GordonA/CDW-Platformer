@@ -43,15 +43,20 @@ tophat = pygame.image.load('Images/topHat.png')
 sword = pygame.image.load('Weapon Pics/Sword.png')
 dagger = pygame.image.load('Weapon Pics/Dagger.png')
 spear = pygame.image.load('Weapon Pics/Spear.png')
+shuriken = pygame.image.load('Weapon Pics/Shuriken.png')
 
 blobFist = pygame.image.load('Weapon Pics/blobertFist.png')
 gelFist = pygame.image.load('Weapon Pics/Gel Fist.png')
 stickFist = pygame.image.load('Weapon Pics/Stick Fist.png')
 
+blobRock = pygame.image.load('Weapon Pics/blobRock.png')
+gelRock = pygame.image.load('Weapon Pics/gelRock.png')
+stickRock = pygame.image.load('Weapon Pics/stickRock.png')
+
 bow = pygame.image.load('Weapon Pics/Bow.png')
 arrow = pygame.image.load('Weapon Pics/Arrow.png')
 
-characterName = 'blobert'  # blobert, gel or player
+characterName = 'player'  # blobert, gel or player
 
 # read in plats from arena file
 print "Complete!"
@@ -85,24 +90,28 @@ if characterName == 'blobert':
     Dude = Character(blobert, 300, 400)
     Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(blobFist, 999, 999, 5, "blobFist")
+    Rock = RangeWeapon(blobRock, blobRock, 999, 999, 1, "Rock", "blobRock", 8)
 elif characterName == 'gel':
     Dude = Character(gel, 300, 400)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(gelFist, 999, 999, 5, "gelFist")
+    Rock = RangeWeapon(gelRock, gelRock, 999, 999, 1, "Rock", "gelRock", 8)
 elif characterName == 'player':
     Dude = Character(player, 300, 400)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(stickFist, 999, 999, 5, "stickFist")
+    Rock = RangeWeapon(stickRock, stickRock, 999, 999, 1, "Rock", "stickRock", 8)
     
 
 Enemy1 = Enemy(enemy, 285, 60, "vampire")
-Fist.setOwner(Dude)
+Rock.setOwner(Dude)
 
-Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
-Dagger = MeleeWeapon(dagger, 450, 65, 10, "Dagger")
-Spear = MeleeWeapon(spear, 15, 210, 5, "Spear")
-HandGun = RangeWeapon(blobFist, stickFist, 570, 60, 2, "HandGun", "Hand", 5)
-BowAndArrow = RangeWeapon(bow, arrow, 15, 425, 3, "Bow and Arrow", "Arrow", 1)
+#Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
+Shuriken = RangeWeapon(shuriken, shuriken, 150, 65, 1, "Shuriken", "Shuriken", 3)
+Dagger = RangeWeapon(dagger, dagger, 450, 65, 5, "Dagger", "Dagger", 15)
+Spear = RangeWeapon(spear, spear, 15, 210, 8, "Javelin", "Javelin", 40)
+HandGun = RangeWeapon(blobFist, stickFist, 570, 60, 2, "HandGun", "Hand", 7)
+BowAndArrow = RangeWeapon(bow, arrow, 15, 425, 3, "Bow and Arrow", "Arrow", 10)
 
 
 print "Complete!"
@@ -137,7 +146,7 @@ while True:
         print Enemy1.HP
         
     if key[K_g]:
-        Fist.setOwner(Dude)
+        Rock.setOwner(Dude)
 
     for w in all_weapons.sprites():
         if(w.owner == Dude):
