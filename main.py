@@ -57,7 +57,7 @@ evilRock = pygame.image.load('Weapon Pics/evilRock.png')
 bow = pygame.image.load('Weapon Pics/Bow.png')
 arrow = pygame.image.load('Weapon Pics/Arrow.png')
 
-characterName = 'gel'  # blobert, gel or player
+characterName = 'blobert'  # blobert, gel or player
 
 # read in plats from arena file
 print "Complete!"
@@ -194,9 +194,24 @@ while Dude.alive and Enemy1.alive:
     
 if Dude.alive:
     print "Dude Wins!"
+    endpic = pygame.image.load('Images/Dude Wins.png')
     
 elif Enemy1.alive:
     print "Vampiric Gel Wins!"
+    endpic = pygame.image.load('Images/VG Wins.png')
     
 else:
     print "It was a tie!"
+    endpic = pygame.image.load()
+    
+while True:
+    screen.blit(endpic, (0, 0))
+    
+    key = pygame.key.get_pressed()
+    
+    
+    if key[K_ESCAPE]:
+        sys.exit()
+        
+    pygame.display.update()
+    pygame.event.pump()
