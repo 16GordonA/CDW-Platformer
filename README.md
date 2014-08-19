@@ -1,7 +1,13 @@
 CDW-Platformer
 ==============
 
-A Platformer game of the arena or puzzle variety
+A Platformer game of the arena variety. Similar to Smash, Brawl, Melee, and Minigun Mayhem
+
+Future Goals
+==============
+
+-Port to website for real time pvp action
+-Develop AI(s) for single player playing
 
 Credits
 ==============
