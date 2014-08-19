@@ -183,11 +183,11 @@ while Dude.alive and Enemy1.alive:
     for e in all_enemies:
         pygame.sprite.spritecollide(e, all_projs, True)
 
-    P1health = myFont.render("Player Health: "+str(Dude.HP) + "%", 1,(255,0,0))
+    P1health = myFont.render("Dude Health: "+str(Dude.HP) + "%", 1,(255,0,0))
     screen.blit(P1health, (10, 10))
 
-    E1health = myFont.render("Enemy1 Health: " + str(Enemy1.HP) + "%", 1, (255, 0 ,0))
-    screen.blit(E1health, (465, 10))
+    E1health = myFont.render("Vampiric Gel Health: " + str(Enemy1.HP) + "%", 1, (255, 0 ,0))
+    screen.blit(E1health, (435, 10))
     
     pygame.display.update()
     pygame.event.pump()
