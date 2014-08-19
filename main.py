@@ -52,11 +52,12 @@ stickFist = pygame.image.load('Weapon Pics/Stick Fist.png')
 blobRock = pygame.image.load('Weapon Pics/blobRock.png')
 gelRock = pygame.image.load('Weapon Pics/gelRock.png')
 stickRock = pygame.image.load('Weapon Pics/stickRock.png')
+evilRock = pygame.image.load('Weapon Pics/evilRock.png')
 
 bow = pygame.image.load('Weapon Pics/Bow.png')
 arrow = pygame.image.load('Weapon Pics/Arrow.png')
 
-characterName = 'player'  # blobert, gel or player
+characterName = 'gel'  # blobert, gel or player
 
 # read in plats from arena file
 print "Complete!"
@@ -102,9 +103,12 @@ elif characterName == 'player':
     Fist = MeleeWeapon(stickFist, 999, 999, 5, "stickFist")
     Rock = RangeWeapon(stickRock, stickRock, 999, 999, 1, "Rock", "stickRock", 8)
     
+evilRock = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8)
+    
 
-Enemy1 = Enemy(enemy, 285, 60, "vampire")
+Enemy1 = Player2(enemy, 285, 60)
 Rock.setOwner(Dude)
+evilRock.setOwner(Enemy1)
 
 #Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
 Shuriken = RangeWeapon(shuriken, shuriken, 150, 65, 1, "Shuriken", "Shuriken", 3)
@@ -134,30 +138,41 @@ while True:
     for e in all_enemies.sprites():
         e.updateSpeed(Dude)
     Dude.update(key, all_plats)
+    Enemy1.update(key, all_plats)
 
     if key[K_ESCAPE]:
         sys.exit()
 
-    if key[K_SPACE]:
-        for w in all_weapons.sprites():
-            w.activate()
-
-    if key[K_h]:
-        print Enemy1.HP
+    if key[K_DOWN]:
+        if Dude.alive:
+            for w in all_weapons.sprites():
+                if(w.owner == Dude):
+                    w.activate()
+    
+    if key[K_s]:
+        if Enemy1.alive:
+            for w in all_weapons.sprites():
+                if(w.owner == Enemy1):
+                    w.activate()
         
-    if key[K_g]:
+    if key[K_l]:
         Rock.setOwner(Dude)
+    
+    if key[K_v]:
+        evilRock.setOwner(Enemy1)
 
     for w in all_weapons.sprites():
         if(w.owner == Dude):
             w.setDirection(Dude.direction)
+        if(w.owner == Enemy1):
+            w.setDirection(Enemy1.direction)
+            
     if characterName == 'blobert' and Dude.alive:
         Top.updateLocation()
 
     for w in all_weapons.sprites():
-        w.contactPlayer(Dude)
-        for e in all_enemies.sprites():
-            w.contactPlayer(e)
+        for c in all_chars.sprites():
+            w.contactPlayer(c)
         w.updateLocation()
         w.tickTimer()
 

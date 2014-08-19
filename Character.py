@@ -111,8 +111,6 @@ class Character(pygame.sprite.Sprite):
                 self.move(10, "up")
             if not self.platformCheck and self.speedY == 0:
                 self.move(0, "up")
-            if keyPressed[K_DOWN]:
-                print self.rect
 
     def updateLocation(self):  # Handles the movement simply / Call LAST
         self.rect = self.rect.move(self.speedX, self.speedY)
@@ -122,3 +120,30 @@ class Character(pygame.sprite.Sprite):
 
     def refreshItem(self, nm):
         self.item = nm
+        
+class Player2(Character):
+    def updateSpeed(self, keyPressed):  # Causes gravitational acceleration / Causes air resistance or friction (less when not on the ground) / ADD COUNTERS TO SLOW DOWN IF TOO FAST
+        if self.alive:
+            if not self.land:  # Gravity
+                self.speedY += 1
+            if self.speedX != 0 and not keyPressed[K_a] and not keyPressed[K_d]:  # Air Resistance when not choosing a direction
+                if self.land:  # If on the ground
+                    if self.speedX > 0:  # If going right originally
+                        self.speedX /= 2
+                    else:  # If going left originally
+                        self.speedX /= 2
+                        self.speedX += 1
+                else:  # If in the air
+                    if self.speedX > 0:  # If going right originally
+                        self.speedX = 3 * self.speedX / 4
+                    else:  # If going left originally
+                        self.speedX /= 3 * self.speedX / 4
+                        self.speedX += 1
+            if keyPressed[K_d]:  # Movement Tests
+                self.move(5, "right")
+            elif keyPressed[K_a]:
+                self.move(5, "left")
+            if keyPressed[K_w]:
+                self.move(10, "up")
+            if not self.platformCheck and self.speedY == 0:
+                self.move(0, "up")
