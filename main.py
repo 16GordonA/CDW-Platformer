@@ -39,6 +39,7 @@ blobert = pygame.image.load('Images/Blobert.png')
 enemy = pygame.image.load('Images/Enemy.png')
 
 tophat = pygame.image.load('Images/topHat.png')
+heart = pygame.image.load('Images/Heart.png')
 
 sword = pygame.image.load('Weapon Pics/Sword.png')
 dagger = pygame.image.load('Weapon Pics/Dagger.png')
@@ -88,17 +89,17 @@ print "Complete!"
 print "Setting up Characters and Weapons..."
 
 if characterName == 'blobert':
-    Dude = Character(blobert, 300, 400)
+    Dude = Character(blobert, 300, 400, 4)
     Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(blobFist, 999, 999, 5, "blobFist")
     Rock = RangeWeapon(blobRock, blobRock, 999, 999, 1, "Rock", "blobRock", 8)
 elif characterName == 'gel':
-    Dude = Character(gel, 300, 400)
+    Dude = Character(gel, 300, 400, 4)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(gelFist, 999, 999, 5, "gelFist")
     Rock = RangeWeapon(gelRock, gelRock, 999, 999, 1, "Rock", "gelRock", 8)
 elif characterName == 'player':
-    Dude = Character(player, 300, 400)
+    Dude = Character(player, 300, 400, 4)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(stickFist, 999, 999, 5, "stickFist")
     Rock = RangeWeapon(stickRock, stickRock, 999, 999, 1, "Rock", "stickRock", 8)
@@ -106,7 +107,7 @@ elif characterName == 'player':
 evilRock = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8)
     
 
-Enemy1 = Player2(enemy, 285, 60)
+Enemy1 = Player2(enemy, 285, 60, 4)
 Rock.setOwner(Dude)
 evilRock.setOwner(Enemy1)
 
@@ -188,9 +189,15 @@ while Dude.alive and Enemy1.alive:
 
     P1health = myFont.render("Dude Health: "+str(Dude.HP) + "%", 1,(255,0,0))
     screen.blit(P1health, (10, 10))
+    
+    for i in range(Dude.lives):
+        screen.blit(heart, (10 + 20 * i, 18))
 
     E1health = myFont.render("Vampiric Gel Health: " + str(Enemy1.HP) + "%", 1, (255, 0 ,0))
     screen.blit(E1health, (425, 10))
+    
+    for i in range(Enemy1.lives):
+        screen.blit(heart, (560 - 20 * i, 18))
     
     if Dude.HP > 100:
         Dude.setHP(Dude.HP - 1)

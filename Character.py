@@ -4,7 +4,7 @@ all_chars = pygame.sprite.Group()
 
 
 class Character(pygame.sprite.Sprite):
-    def __init__(self, image, startX, startY):
+    def __init__(self, image, startX, startY, lives):
         pygame.sprite.Sprite.__init__(self)
         self.image = image.convert_alpha()  # transparent image
         self.rect = self.image.get_rect().move(startX, startY)  # rect is for blitting
@@ -15,6 +15,7 @@ class Character(pygame.sprite.Sprite):
         self.item = None
         self.direction = 'R'  # direction (L,R)
         self.alive = True
+        self.lives = lives
         self.HP = 100
         pygame.sprite.Sprite.__init__(self, all_chars)
 
@@ -22,9 +23,15 @@ class Character(pygame.sprite.Sprite):
         self.HP = hp
         if(self.HP <= 0):
             self.HP = 0
-            self.alive = False
-            poof = pygame.image.load('Images/Poof.png')
-            self.image = poof.convert_alpha()
+            if self.lives > 1:
+                self.lives -= 1
+                self.HP = 110
+                self.item = None
+            else:
+                self.alive = False
+                poof = pygame.image.load('Images/Poof.png')
+                self.image = poof.convert_alpha()
+                
             self.speedX = 0
             self.speedY = 0
 
