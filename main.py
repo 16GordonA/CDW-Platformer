@@ -14,10 +14,11 @@ Creates the outermost frame for the world
 '''
 
 SCREEN_WIDTH = 600
-SCREEN_HEIGHT = 459  # only to show bottommost layer, for all intensive purposes, the height is 450 pixels
+SCREEN_HEIGHT = 459  # only to show bottommost layer, for all intents andpurposes, the height is 450 pixels
 
 pygame.font.init()
 myFont = pygame.font.SysFont("Comic Sans", 18)
+all_projs_offscreen = pygame.sprite.Group() #will not be rendered to make game faster
 
 """
 Graphics
@@ -136,7 +137,7 @@ while Dude.alive and Enemy1.alive:
     screen.blit(background2, (0, 0))
     all_weapons.draw(screen)
     all_plats.draw(screen)
-    all_projs.draw(screen)
+    #all_projs.draw(screen)
     all_chars.draw(screen)
     all_hats.draw(screen)
     all_enemies.draw(screen)
