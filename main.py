@@ -210,7 +210,7 @@ elif Enemy1.alive:
     
 else:
     print "It was a tie!"
-    endpic = pygame.image.load()
+    endpic = pygame.image.load('Images/Tie.png')
     
 while True:
     screen.blit(endpic, (0, 0))
