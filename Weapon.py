@@ -160,8 +160,12 @@ class Projectile(MeleeWeapon):
             self.rect = self.rect.move(6, 0)
         else:
             self.rect = self.rect.move(-6, 0)
-        if self.rect.left > 2000 or self.rect.right < -2000:
-            self.rect = self.rect.move(0, 2000) #moves below arena
+        if self.rect.left > 1500 or self.rect.right < -500:
+            if self.dir == 'R':
+                self.rect = self.rect.move(-6, 0) #moves backwards so net movement = 0
+            elif self.dir == 'L':
+                self.rect = self.rect.move(6, 0)
+            all_projs.remove(self)
         pygame.sprite.Sprite.__init__(self, all_projs)
 
     def contactPlayer(self, target):

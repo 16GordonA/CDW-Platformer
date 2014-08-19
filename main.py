@@ -126,6 +126,12 @@ Dude.setHP(150)
 Enemy1.setHP(150)
 
 while Dude.alive and Enemy1.alive:
+    
+    if Dude.item == None:
+        Rock.setOwner(Dude)
+    if Enemy1.item == None:
+        evilRock.setOwner(Enemy1)
+    
     #time.sleep(.01)
     screen.blit(background2, (0, 0))
     all_weapons.draw(screen)
