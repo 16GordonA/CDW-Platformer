@@ -24,6 +24,8 @@ Graphics
 """
 size = SCREEN_WIDTH, SCREEN_HEIGHT
 screen = pygame.display.set_mode(size)
+
+print "Loading Images..."
 background = pygame.image.load('Images/background.png')
 background2 = pygame.image.load('Images/night.png')
 grass = pygame.image.load('Images/Grass tile.png')
@@ -52,6 +54,9 @@ arrow = pygame.image.load('Weapon Pics/Arrow.png')
 characterName = 'blobert'  # blobert, gel or player
 
 # read in plats from arena file
+print "Complete!"
+print "Generating Arena..."
+
 f = open("arena_1.txt", "r")
 plat_strings = []
 for i in range(9):  # 9 IS THE LENGTH OF PLAT - NEEDS TO BE CHANGED IF NUMBER OF ROWS CHANGES
@@ -72,6 +77,9 @@ for p in range(len(plat_strings)):
 all_plats.add(Platform(wall, -5, -125))
 all_plats.add(Platform(wall, 600, -125))
 all_plats.add(Platform(ceiling, -100, -100))
+
+print "Complete!"
+print "Setting up Characters and Weapons..."
 
 if characterName == 'blobert':
     Dude = Character(blobert, 300, 400)
@@ -96,8 +104,12 @@ Spear = MeleeWeapon(spear, 15, 210, 5, "Spear")
 HandGun = RangeWeapon(blobFist, stickFist, 570, 60, 2, "HandGun", "Hand", 5)
 BowAndArrow = RangeWeapon(bow, arrow, 15, 425, 3, "Bow and Arrow", "Arrow", 1)
 
+
+print "Complete!"
+print "Game Beginning..."
+
 while True:
-    time.sleep(.01)
+    #time.sleep(.01)
     screen.blit(background2, (0, 0))
     all_weapons.draw(screen)
     all_plats.draw(screen)
@@ -130,7 +142,7 @@ while True:
     for w in all_weapons.sprites():
         if(w.owner == Dude):
             w.setDirection(Dude.direction)
-    if characterName == 'blobert':
+    if characterName == 'blobert' and Dude.alive:
         Top.updateLocation()
 
     for w in all_weapons.sprites():
