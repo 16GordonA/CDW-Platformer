@@ -39,6 +39,8 @@ class Enemy(pygame.sprite.Sprite):
             self.alive = False
             poof = pygame.image.load('Images/Poof.png')
             self.image = poof.convert_alpha()
+            self.speedX = 0
+            self.speedY = 0
     
     def move(self, speed, direction):  # changes speed on key press / Call after key event is handled
         if direction == "up" and self.land:

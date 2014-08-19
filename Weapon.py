@@ -54,7 +54,7 @@ class MeleeWeapon(pygame.sprite.Sprite):
 
     def contactPlayer(self, target):
         if self.rect.bottom > target.rect.top and self.rect.top < target.rect.bottom and self.rect.right > target.rect.left and self.rect.left < target.rect.right and self.owner is None:
-            if self.owner is not None and self.owner != target:
+            if self.owner is not None and self.owner is not target:
                 "hyah"
                 target.setHP(target.HP - self.dmg)
                 self.rect = self.rect.move(999, 999)
@@ -157,9 +157,9 @@ class RangeWeapon(MeleeWeapon):
 class Projectile(MeleeWeapon):
     def updateLocation(self):  # moves
         if self.dir == 'R':
-            self.rect = self.rect.move(5, 0)
+            self.rect = self.rect.move(6, 0)
         else:
-            self.rect = self.rect.move(-5, 0)
+            self.rect = self.rect.move(-6, 0)
         pygame.sprite.Sprite.__init__(self, all_projs)
 
     def contactPlayer(self, target):
