@@ -57,7 +57,7 @@ evilRock = pygame.image.load('Weapon Pics/evilRock.png')
 bow = pygame.image.load('Weapon Pics/Bow.png')
 arrow = pygame.image.load('Weapon Pics/Arrow.png')
 
-characterName = 'blobert'  # blobert, gel or player
+characterName = 'gel'  # blobert, gel or player
 
 # read in plats from arena file
 print "Complete!"
@@ -120,6 +120,9 @@ BowAndArrow = RangeWeapon(bow, arrow, 15, 425, 3, "Bow and Arrow", "Arrow", 10)
 
 print "Complete!"
 print "Game Beginning..."
+
+Dude.setHP(105)
+Enemy1.setHP(105)
 
 while Dude.alive and Enemy1.alive:
     #time.sleep(.01)
@@ -187,7 +190,12 @@ while Dude.alive and Enemy1.alive:
     screen.blit(P1health, (10, 10))
 
     E1health = myFont.render("Vampiric Gel Health: " + str(Enemy1.HP) + "%", 1, (255, 0 ,0))
-    screen.blit(E1health, (435, 10))
+    screen.blit(E1health, (425, 10))
+    
+    if Dude.HP > 100.1:
+        Dude.setHP(Dude.HP - .1)
+    if Enemy1.HP > 100.1:
+        Enemy1.setHP(Enemy1.HP - .1)
     
     pygame.display.update()
     pygame.event.pump()
