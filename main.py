@@ -59,6 +59,9 @@ evilRock = pygame.image.load('Weapon Pics/evilRock.png')
 bow = pygame.image.load('Weapon Pics/Bow.png')
 arrow = pygame.image.load('Weapon Pics/Arrow.png')
 
+sniper = pygame.image.load('Weapon Pics/Sniper.png')
+sshot = pygame.image.load('Weapon Pics/sshot.png')
+
 characterName = 'gel'  # blobert, gel or player
 
 # read in plats from arena file
@@ -115,9 +118,11 @@ evilRock.setOwner(Enemy1)
 #Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
 Shuriken = RangeWeapon(shuriken, shuriken, 150, 65, 1, "Shuriken", "Shuriken", 3)
 Dagger = RangeWeapon(dagger, dagger, 450, 65, 5, "Dagger", "Dagger", 15)
-Spear = RangeWeapon(spear, spear, 15, 300, 8, "Javelin", "Javelin", 24)
+Spear = RangeWeapon(spear, spear, 15, 360, 8, "Javelin", "Javelin", 24)
 HandGun = RangeWeapon(blobFist, stickFist, 570, 120, 2, "HandGun", "Hand", 6)
 BowAndArrow = RangeWeapon(bow, arrow, 15, 425, 3, "Bow and Arrow", "Arrow", 9)
+
+Sniper = RangeWeapon(sniper, sshot, 280, 300, 20, "Sniper", "sniper shot", 60)
 
 
 print "Complete!"
