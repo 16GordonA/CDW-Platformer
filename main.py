@@ -62,6 +62,8 @@ arrow = pygame.image.load('Weapon Pics/Arrow.png')
 sniper = pygame.image.load('Weapon Pics/Sniper.png')
 sshot = pygame.image.load('Weapon Pics/sshot.png')
 
+minigun = pygame.image.load('Weapon Pics/Minigun.png')
+
 characterName = 'gel'  # blobert, gel or player
 
 # read in plats from arena file
@@ -123,6 +125,8 @@ HandGun = RangeWeapon(blobFist, stickFist, 570, 120, 2, "HandGun", "Hand", 6)
 BowAndArrow = RangeWeapon(bow, arrow, 300, 425, 3, "Bow and Arrow", "Arrow", 9)
 
 Sniper = RangeWeapon(sniper, sshot, 280, 300, 20, "Sniper", "sniper shot", 60)
+Mini1 = RangeWeapon(minigun, sshot, 240, 180, 2, "Minigun", "shot", 3)
+Mini2 = RangeWeapon(minigun, sshot, 360, 180, 2, "Minigun", "shot", 3)
 
 
 print "Complete!"
