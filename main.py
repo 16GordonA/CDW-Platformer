@@ -93,17 +93,17 @@ print "Complete!"
 print "Setting up Characters and Weapons..."
 
 if characterName == 'blobert':
-    Dude = Character(blobert, 300, 400, 4)
+    Dude = Character(blobert, 150, 400, 4)
     Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(blobFist, 999, 999, 5, "blobFist")
     Rock = RangeWeapon(blobRock, blobRock, 999, 999, 1, "Rock", "blobRock", 8)
 elif characterName == 'gel':
-    Dude = Character(gel, 300, 400, 4)
+    Dude = Character(gel, 150, 400, 4)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(gelFist, 999, 999, 5, "gelFist")
     Rock = RangeWeapon(gelRock, gelRock, 999, 999, 1, "Rock", "gelRock", 8)
 elif characterName == 'player':
-    Dude = Character(player, 300, 400, 4)
+    Dude = Character(player, 150, 400, 4)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(stickFist, 999, 999, 5, "stickFist")
     Rock = RangeWeapon(stickRock, stickRock, 999, 999, 1, "Rock", "stickRock", 8)
@@ -111,7 +111,7 @@ elif characterName == 'player':
 evilRock = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8)
     
 
-Enemy1 = Player2(enemy, 285, 60, 4)
+Enemy1 = Player2(enemy, 450, 400, 4)
 Rock.setOwner(Dude)
 evilRock.setOwner(Enemy1)
 
@@ -120,7 +120,7 @@ Shuriken = RangeWeapon(shuriken, shuriken, 150, 65, 1, "Shuriken", "Shuriken", 3
 Dagger = RangeWeapon(dagger, dagger, 450, 65, 5, "Dagger", "Dagger", 15)
 Spear = RangeWeapon(spear, spear, 15, 360, 8, "Javelin", "Javelin", 24)
 HandGun = RangeWeapon(blobFist, stickFist, 570, 120, 2, "HandGun", "Hand", 6)
-BowAndArrow = RangeWeapon(bow, arrow, 15, 425, 3, "Bow and Arrow", "Arrow", 9)
+BowAndArrow = RangeWeapon(bow, arrow, 300, 425, 3, "Bow and Arrow", "Arrow", 9)
 
 Sniper = RangeWeapon(sniper, sshot, 280, 300, 20, "Sniper", "sniper shot", 60)
 
