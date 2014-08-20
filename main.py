@@ -65,7 +65,7 @@ characterName = 'gel'  # blobert, gel or player
 print "Complete!"
 print "Generating Arena..."
 
-f = open("arena_1.txt", "r")
+f = open("arena_2.txt", "r")
 plat_strings = []
 for i in range(9):  # 9 IS THE LENGTH OF PLAT - NEEDS TO BE CHANGED IF NUMBER OF ROWS CHANGES
     plat_strings.append(f.readline())
@@ -115,8 +115,8 @@ evilRock.setOwner(Enemy1)
 #Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
 Shuriken = RangeWeapon(shuriken, shuriken, 150, 65, 1, "Shuriken", "Shuriken", 3)
 Dagger = RangeWeapon(dagger, dagger, 450, 65, 5, "Dagger", "Dagger", 15)
-Spear = RangeWeapon(spear, spear, 15, 210, 8, "Javelin", "Javelin", 24)
-HandGun = RangeWeapon(blobFist, stickFist, 570, 60, 2, "HandGun", "Hand", 6)
+Spear = RangeWeapon(spear, spear, 15, 300, 8, "Javelin", "Javelin", 24)
+HandGun = RangeWeapon(blobFist, stickFist, 570, 120, 2, "HandGun", "Hand", 6)
 BowAndArrow = RangeWeapon(bow, arrow, 15, 425, 3, "Bow and Arrow", "Arrow", 9)
 
 
