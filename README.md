@@ -21,4 +21,4 @@ Visual Assets (making all visual effects, sprites, etc): Dan, Akiva
 
 Moral Support (providing moral support): Zarina Nip
 
-Immoral Support (providing less-than-moral support: Andrew Li
+Immoral Support (providing less-than-moral support): Andrew Li
