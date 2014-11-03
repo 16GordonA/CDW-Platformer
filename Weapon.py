@@ -1,5 +1,6 @@
-import pygame, sys
+import pygame, sys, random
 from pygame.locals import *
+
 
 all_weapons = pygame.sprite.Group()
 all_projs = pygame.sprite.Group()
@@ -123,13 +124,13 @@ class RangeWeapon(MeleeWeapon):
                 if self.owner.direction == 'R':
                     self.rect = self.rect.move(self.owner.rect.right, self.owner.rect.centery - (self.rect.height / 2))
                     if self.timer > 4:
-                        p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2), self.p_damage, self.p_name)
+                        p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-5, 5)), self.p_damage, self.p_name)
                         p.setDirection(self.dir)
                         self.p_array.append(p)
                 else:
                     self.rect = self.rect.move(self.owner.rect.left - self.rect.width, self.owner.rect.centery - (self.rect.height / 2))
                     if self.timer > 4:
-                        p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2), self.p_damage, self.p_name)
+                        p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-5, 5)), self.p_damage, self.p_name)
                         p.setDirection(self.dir)
                         self.p_array.append(p)
             if self.owner.item != self.name:
