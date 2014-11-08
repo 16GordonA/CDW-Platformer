@@ -98,19 +98,19 @@ if characterName == 'blobert':
     Dude = Character(blobert, 150, 400, 4)
     Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(blobFist, 999, 999, 5, "blobFist")
-    Rock = RangeWeapon(blobRock, blobRock, 999, 999, 1, "Rock", "blobRock", 8)
+    Rock = RangeWeapon(blobRock, blobRock, 999, 999, 1, "Rock", "blobRock", 8, 0)
 elif characterName == 'gel':
     Dude = Character(gel, 150, 400, 4)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(gelFist, 999, 999, 5, "gelFist")
-    Rock = RangeWeapon(gelRock, gelRock, 999, 999, 1, "Rock", "gelRock", 8)
+    Rock = RangeWeapon(gelRock, gelRock, 999, 999, 1, "Rock", "gelRock", 8, 0)
 elif characterName == 'player':
     Dude = Character(player, 150, 400, 4)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(stickFist, 999, 999, 5, "stickFist")
-    Rock = RangeWeapon(stickRock, stickRock, 999, 999, 1, "Rock", "stickRock", 8)
+    Rock = RangeWeapon(stickRock, stickRock, 999, 999, 1, "Rock", "stickRock", 8, 0)
     
-evilRock = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8)
+evilRock = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8, 0)
     
 
 Enemy1 = Player2(enemy, 450, 400, 4)
@@ -118,15 +118,15 @@ Rock.setOwner(Dude)
 evilRock.setOwner(Enemy1)
 
 #Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
-Shuriken = RangeWeapon(shuriken, shuriken, 150, 65, 1, "Shuriken", "Shuriken", 3)
-Dagger = RangeWeapon(dagger, dagger, 450, 65, 5, "Dagger", "Dagger", 15)
-Spear = RangeWeapon(spear, spear, 15, 360, 8, "Javelin", "Javelin", 24)
-HandGun = RangeWeapon(blobFist, stickFist, 570, 120, 2, "HandGun", "Hand", 6)
-BowAndArrow = RangeWeapon(bow, arrow, 300, 425, 3, "Bow and Arrow", "Arrow", 9)
+Shuriken = RangeWeapon(shuriken, shuriken, 150, 65, 1, "Shuriken", "Shuriken", 3, 2)
+Dagger = RangeWeapon(dagger, dagger, 450, 65, 5, "Dagger", "Dagger", 15, 1)
+Spear = RangeWeapon(spear, spear, 15, 360, 8, "Javelin", "Javelin", 24, 5)
+HandGun = RangeWeapon(blobFist, stickFist, 570, 120, 2, "HandGun", "Hand", 6, 10)
+BowAndArrow = RangeWeapon(bow, arrow, 300, 425, 3, "Bow and Arrow", "Arrow", 9, 3)
 
-Sniper = RangeWeapon(sniper, sshot, 280, 300, 20, "Sniper", "sniper shot", 60)
-Mini1 = RangeWeapon(minigun, sshot, 240, 180, 2, "Minigun", "shot", 3)
-Mini2 = RangeWeapon(minigun, sshot, 360, 180, 2, "Minigun", "shot", 3)
+Sniper = RangeWeapon(sniper, sshot, 280, 300, 20, "Sniper", "sniper shot", 60, 0)
+Mini1 = RangeWeapon(minigun, sshot, 240, 180, 2, "Minigun", "shot", 3, 8)
+Mini2 = RangeWeapon(minigun, sshot, 360, 180, 2, "Minigun", "shot", 3, 8)
 
 
 print "Complete!"
