@@ -161,7 +161,7 @@ while Dude.alive and (Enemy1.alive or Enemy2.alive):
 
     key = pygame.key.get_pressed()
     for e in all_enemies.sprites():
-        e.updateSpeed(Dude, 1) #change the number for difficulty level (from 0 to 10)
+        e.updateSpeed(Dude, 3) #change the number for difficulty level (from 0 to 10)
     Dude.update(key, all_plats)
     Enemy1.update(key, all_plats)
     Enemy2.update(key, all_plats)

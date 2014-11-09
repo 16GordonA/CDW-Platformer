@@ -156,7 +156,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.direction = 'R'
             
             for w in all_weapons.sprites():
-                if(w.owner == self and random.randint(0, level) > 0):
+                if(w.owner == self and (random.randint(0, level) > 1)):
                     w.setDirection(self.direction)
                     w.activate()
         
