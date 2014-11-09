@@ -95,7 +95,7 @@ class MeleeWeapon(pygame.sprite.Sprite):
 
 
 class RangeWeapon(MeleeWeapon):
-    def __init__(self, image, p_image, startX, startY, damage, name, p_name, CDMax, spread):
+    def __init__(self, image, p_image, startX, startY, damage, name, p_name, CDMax, spread, pcount):
         pygame.sprite.Sprite.__init__(self)
         self.image = image.convert_alpha()  # transparent image
         self.damage = 0
@@ -116,6 +116,7 @@ class RangeWeapon(MeleeWeapon):
         self.p_array = []  # set of projectiles
         self.cooldownMax = CDMax
         self.spread = spread
+        self.p_count = pcount
         pygame.sprite.Sprite.__init__(self, all_weapons)
         
     def updateLocation(self):  # Only used when it has an owner and is activated
@@ -125,15 +126,17 @@ class RangeWeapon(MeleeWeapon):
                 if self.owner.direction == 'R':
                     self.rect = self.rect.move(self.owner.rect.right, self.owner.rect.centery - (self.rect.height / 2))
                     if self.timer > 4:
-                        p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name)
-                        p.setDirection(self.dir)
-                        self.p_array.append(p)
+                        for i in range(self.p_count):
+                            p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name)
+                            p.setDirection(self.dir)
+                            self.p_array.append(p)
                 else:
                     self.rect = self.rect.move(self.owner.rect.left - self.rect.width, self.owner.rect.centery - (self.rect.height / 2))
                     if self.timer > 4:
-                        p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name)
-                        p.setDirection(self.dir)
-                        self.p_array.append(p)
+                        for i in range(self.p_count):
+                            p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name)
+                            p.setDirection(self.dir)
+                            self.p_array.append(p)
             if self.owner.item != self.name:
                 self.owner = None
                 self.timer = 0
