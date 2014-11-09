@@ -156,10 +156,10 @@ while Dude.alive and Enemy1.alive:
 
     key = pygame.key.get_pressed()
     for e in all_enemies.sprites():
-        e.updateSpeed(Dude)
+        e.updateSpeed(Dude, 6) #change the number for difficulty level (from 0 to 10)
     Dude.update(key, all_plats)
     Enemy1.update(key, all_plats)
-    Enemy1.AI(Dude)
+    #Enemy1.updateSpeed(Dude, )
 
     if key[K_ESCAPE]:
         sys.exit()

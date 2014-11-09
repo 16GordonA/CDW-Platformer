@@ -91,19 +91,8 @@ class Enemy(pygame.sprite.Sprite):
         else:
             self.platformCheck = True  # if after checking all blocks, platformCheck is still False, set land to False
 
-    def updateSpeed(self, player):  # name saved from Character class, can be changed later
-        self.AI(player)
-        
-        
-        if player.rect.left > self.rect.right:  # player to enemy's right
-            self.move(5, "right")
-        elif player.rect.right < self.rect.left:  # player to enemy's left
-            self.move(5, "left")
-        if (not self.platformCheck and player.rect.bottom < self.rect.top):
-            self.move(15, "up")
-        if not self.platformCheck and self.speedY == 0:
-            self.move(0, "up")
-        #gets to same level as player, then walks towards player and attacks
+    def updateSpeed(self, player, level):  # name saved from Character class, can be changed later
+        self.AI(player, level)
 
     def updateLocation(self):  # Handles the movement simply / Call LAST
         self.rect = self.rect.move(self.speedX, self.speedY)
@@ -114,7 +103,7 @@ class Enemy(pygame.sprite.Sprite):
     def refreshItem(self, itemName):
         self.Item = itemName
 
-    def AI (self, player):
+    def AI (self, player, level):
         
         if not self.land:  # Gravity
             self.speedY += 1
@@ -169,6 +158,7 @@ class Enemy(pygame.sprite.Sprite):
                     w.setDirection(self.direction)
                     w.activate()
         
+        '''
         if(elevel > plevel):
             print('too low')
             #jump
@@ -177,6 +167,17 @@ class Enemy(pygame.sprite.Sprite):
         if(elevel < plevel):
             print('too high')
             #walk off given platform
+        '''
+            
+        if player.rect.left > self.rect.right + 5 * (10 - level):  # player to enemy's right
+            self.move(5, "right")
+        elif player.rect.right < self.rect.left - 5 * (10 - level):  # player to enemy's left
+            self.move(5, "left")
+        if (not self.platformCheck and player.rect.bottom < self.rect.top):
+            self.move(15, "up")
+        if not self.platformCheck and self.speedY == 0:
+            self.move(0, "up")
+        #gets to same level as player, then walks towards player and attacks
         
             
         
