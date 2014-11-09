@@ -100,7 +100,7 @@ class Enemy(pygame.sprite.Sprite):
         elif player.rect.right < self.rect.left:  # player to enemy's left
             self.move(5, "left")
         if (not self.platformCheck and player.rect.bottom < self.rect.top):
-            self.move(12, "up")
+            self.move(15, "up")
         if not self.platformCheck and self.speedY == 0:
             self.move(0, "up")
         #gets to same level as player, then walks towards player and attacks
