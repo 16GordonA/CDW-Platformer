@@ -98,20 +98,20 @@ if characterName == 'blobert':
     Dude = Character(blobert, 150, 400, 4)
     Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(blobFist, 999, 999, 5, "blobFist")
-    Rock = RangeWeapon(blobRock, blobRock, 999, 999, 1, "Rock", "blobRock", 8, 0)
+    Rock = RangeWeapon(blobRock, blobRock, 999, 999, 1, "Rock", "blobRock", 8, 0, 1)
 elif characterName == 'gel':
     Dude = Character(gel, 150, 400, 4)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(gelFist, 999, 999, 5, "gelFist")
-    Rock = RangeWeapon(gelRock, gelRock, 999, 999, 1, "Rock", "gelRock", 8, 0)
+    Rock = RangeWeapon(gelRock, gelRock, 999, 999, 1, "Rock", "gelRock", 8, 0, 1)
 elif characterName == 'player':
     Dude = Character(player, 150, 400, 4)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(stickFist, 999, 999, 5, "stickFist")
-    Rock = RangeWeapon(stickRock, stickRock, 999, 999, 1, "Rock", "stickRock", 8, 0)
+    Rock = RangeWeapon(stickRock, stickRock, 999, 999, 1, "Rock", "stickRock", 8, 0, 1)
     
-evilRock1 = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8, 0)
-evilRock2 = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock1", 8, 0)
+evilRock1 = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8, 0, 1)
+evilRock2 = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock1", 8, 0, 1)
     
 
 Enemy1 = Enemy(enemy, 450, 400, 1, "enemy1")
@@ -121,15 +121,15 @@ evilRock1.setOwner(Enemy1)
 evilRock2.setOwner(Enemy2)
 
 #Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
-Shuriken = RangeWeapon(shuriken, shuriken, 150, 65, 1, "Shuriken", "Shuriken", 3, 2)
-Dagger = RangeWeapon(dagger, dagger, 450, 65, 5, "Dagger", "Dagger", 15, 1)
-Spear = RangeWeapon(spear, spear, 15, 360, 8, "Javelin", "Javelin", 24, 5)
-HandGun = RangeWeapon(blobFist, stickFist, 570, 120, 2, "HandGun", "Hand", 6, 10)
-BowAndArrow = RangeWeapon(bow, arrow, 300, 425, 3, "Bow and Arrow", "Arrow", 9, 3)
+Shuriken = RangeWeapon(shuriken, shuriken, 150, 65, 1, "Shuriken", "Shuriken", 3, 2, 1)
+Dagger = RangeWeapon(dagger, dagger, 450, 65, 5, "Dagger", "Dagger", 15, 1, 1)
+Spear = RangeWeapon(spear, spear, 15, 360, 8, "Javelin", "Javelin", 24, 5, 1)
+HandGun = RangeWeapon(blobFist, stickFist, 570, 120, 2, "HandGun", "Hand", 6, 10, 1)
+BowAndArrow = RangeWeapon(bow, arrow, 300, 425, 3, "Bow and Arrow", "Arrow", 9, 3, 1)
 
-Sniper = RangeWeapon(sniper, sshot, 280, 300, 20, "Sniper", "sniper shot", 60, 0)
-Mini1 = RangeWeapon(minigun, sshot, 240, 180, 2, "Minigun1", "shot", 3, 8)
-Mini2 = RangeWeapon(minigun, sshot, 360, 180, 2, "Minigun2", "shot", 3, 8)
+Sniper = RangeWeapon(sniper, sshot, 280, 300, 20, "Sniper", "sniper shot", 60, 0, 1)
+Mini1 = RangeWeapon(minigun, sshot, 240, 180, 1, "Minigun1", "shot", 3, 8, 2)
+Mini2 = RangeWeapon(minigun, sshot, 360, 180, 1, "Minigun2", "shot", 3, 8, 2)
 
 
 print "Complete!"
@@ -243,8 +243,8 @@ if Dude.alive:
     print "Dude Wins!"
     endpic = pygame.image.load('Images/Dude Wins.png')
     
-elif Enemy1.alive:
-    print "Vampiric Gel Wins!"
+elif Enemy1.alive or Enemy2.alive:
+    print "Vampiric Gels Win!"
     endpic = pygame.image.load('Images/VG Wins.png')
     
 else:

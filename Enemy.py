@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys, random
 from pygame.locals import *
 from Weapon import *
 from Character import *
@@ -43,6 +43,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.item = None
             else:
                 self.alive = False
+                self.item = None
                 poof = pygame.image.load('Images/Poof.png')
                 self.image = poof.convert_alpha()
                 
@@ -155,7 +156,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.direction = 'R'
             
             for w in all_weapons.sprites():
-                if(w.owner == self and w.cooldown == 0):
+                if(w.owner == self and random.randint(0, level) > 0):
                     w.setDirection(self.direction)
                     w.activate()
         
