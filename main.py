@@ -110,12 +110,15 @@ elif characterName == 'player':
     Fist = MeleeWeapon(stickFist, 999, 999, 5, "stickFist")
     Rock = RangeWeapon(stickRock, stickRock, 999, 999, 1, "Rock", "stickRock", 8, 0)
     
-evilRock = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8, 0)
+evilRock1 = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8, 0)
+evilRock2 = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock1", 8, 0)
     
 
-Enemy1 = Enemy(enemy, 450, 400, 4, "enemy")
+Enemy1 = Enemy(enemy, 450, 400, 1, "enemy1")
+Enemy2 = Enemy(enemy, 150, 200, 1, "enemy2")
 Rock.setOwner(Dude)
-evilRock.setOwner(Enemy1)
+evilRock1.setOwner(Enemy1)
+evilRock2.setOwner(Enemy2)
 
 #Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
 Shuriken = RangeWeapon(shuriken, shuriken, 150, 65, 1, "Shuriken", "Shuriken", 3, 2)
@@ -135,12 +138,14 @@ print "Game Beginning..."
 Dude.setHP(150)
 Enemy1.setHP(150)
 
-while Dude.alive and Enemy1.alive:
+while Dude.alive and (Enemy1.alive or Enemy2.alive):
     
     if Dude.item == None:
         Rock.setOwner(Dude)
     if Enemy1.item == None:
-        evilRock.setOwner(Enemy1)
+        evilRock1.setOwner(Enemy1)
+    if Enemy2.item == None:
+        evilRock2.setOwner(Enemy2)
     
     #time.sleep(.01)
     screen.blit(background2, (0, 0))
@@ -156,9 +161,10 @@ while Dude.alive and Enemy1.alive:
 
     key = pygame.key.get_pressed()
     for e in all_enemies.sprites():
-        e.updateSpeed(Dude, 6) #change the number for difficulty level (from 0 to 10)
+        e.updateSpeed(Dude, 1) #change the number for difficulty level (from 0 to 10)
     Dude.update(key, all_plats)
     Enemy1.update(key, all_plats)
+    Enemy2.update(key, all_plats)
     #Enemy1.updateSpeed(Dude, )
 
     if key[K_ESCAPE]:
@@ -198,7 +204,7 @@ while Dude.alive and Enemy1.alive:
             w.contactPlayer(c)
         for e in all_enemies.sprites():
             if w.contactPlayer(e):
-                w.setOwner(Enemy1)
+                w.setOwner(e)
         w.updateLocation()
         w.tickTimer()
 
@@ -214,17 +220,21 @@ while Dude.alive and Enemy1.alive:
     
     for i in range(Dude.lives):
         screen.blit(heart, (10 + 20 * i, 18))
-
-    E1health = myFont.render("Vampiric Gel Health: " + str(Enemy1.HP) + "%", 1, (255, 0 ,0))
-    screen.blit(E1health, (425, 10))
     
-    for i in range(Enemy1.lives):
-        screen.blit(heart, (560 - 20 * i, 18))
+    count = 0
+    
+    for e in all_enemies:
+        E1health = myFont.render("Vampiric Gel Health: " + str(e.HP) + "%", 1, (255, 0 ,0))
+        screen.blit(E1health, (425, 10 + 40 * count))
+        for i in range(e.lives):
+            screen.blit(heart, (560 - 20 * i, 18 + 40*count))
+        count += 1
     
     if Dude.HP > 100:
         Dude.setHP(Dude.HP - 1)
-    if Enemy1.HP > 100:
-        Enemy1.setHP(Enemy1.HP - 1)
+    for e in all_enemies:
+        if e.HP > 100:
+            e.setHP(e.HP - 1)
     
     pygame.display.update()
     pygame.event.pump()

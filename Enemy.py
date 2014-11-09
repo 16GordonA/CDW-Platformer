@@ -92,7 +92,8 @@ class Enemy(pygame.sprite.Sprite):
             self.platformCheck = True  # if after checking all blocks, platformCheck is still False, set land to False
 
     def updateSpeed(self, player, level):  # name saved from Character class, can be changed later
-        self.AI(player, level)
+        if self.alive:
+            self.AI(player, level)
 
     def updateLocation(self):  # Handles the movement simply / Call LAST
         self.rect = self.rect.move(self.speedX, self.speedY)
