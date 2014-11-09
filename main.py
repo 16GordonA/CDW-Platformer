@@ -125,8 +125,8 @@ HandGun = RangeWeapon(blobFist, stickFist, 570, 120, 2, "HandGun", "Hand", 6, 10
 BowAndArrow = RangeWeapon(bow, arrow, 300, 425, 3, "Bow and Arrow", "Arrow", 9, 3)
 
 Sniper = RangeWeapon(sniper, sshot, 280, 300, 20, "Sniper", "sniper shot", 60, 0)
-Mini1 = RangeWeapon(minigun, sshot, 240, 180, 2, "Minigun", "shot", 3, 8)
-Mini2 = RangeWeapon(minigun, sshot, 360, 180, 2, "Minigun", "shot", 3, 8)
+Mini1 = RangeWeapon(minigun, sshot, 240, 180, 2, "Minigun1", "shot", 3, 8)
+Mini2 = RangeWeapon(minigun, sshot, 360, 180, 2, "Minigun2", "shot", 3, 8)
 
 
 print "Complete!"

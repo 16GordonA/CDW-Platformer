@@ -115,7 +115,7 @@ class Character(pygame.sprite.Sprite):
             elif keyPressed[K_LEFT]:
                 self.move(5, "left")
             if keyPressed[K_UP]:
-                self.move(10, "up")
+                self.move(12, "up")
             if not self.platformCheck and self.speedY == 0:
                 self.move(0, "up")
 
@@ -151,6 +151,6 @@ class Player2(Character):
             elif keyPressed[K_a]:
                 self.move(5, "left")
             if keyPressed[K_w]:
-                self.move(10, "up")
+                self.move(12, "up")
             if not self.platformCheck and self.speedY == 0:
                 self.move(0, "up")
