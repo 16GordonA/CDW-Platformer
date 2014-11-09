@@ -59,15 +59,17 @@ class MeleeWeapon(pygame.sprite.Sprite):
                 print "hyah"
                 target.setHP(target.HP - self.dmg)
                 self.rect = self.rect.move(999, 999)
+                return False
             else:
-                self.owner = target
-                self.rect = self.rect.move(999, 999)
-                self.owner.refreshItem(self.name)
+                self.setOwner(target)
+                return True
+        else:
+            return False
                 
     def setOwner(self, target):  # for gaining weapons without going near them
         self.owner = target
         self.rect = self.rect.move(999, 999)
-        self.owner.refreshItem(self.name)
+        self.owner.item = self.name
 
     def activate(self):
         if self.cooldown == 0:

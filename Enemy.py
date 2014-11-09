@@ -95,14 +95,12 @@ class Enemy(pygame.sprite.Sprite):
         self.AI(player)
         
         
-        if player.rect.bottom > self.rect.top:
-            self.move(10, "up")
         if player.rect.left > self.rect.right:  # player to enemy's right
             self.move(5, "right")
         elif player.rect.right < self.rect.left:  # player to enemy's left
             self.move(5, "left")
-        if (player.rect.bottom > self.rect.top):
-            self.move(10, "up")
+        if (not self.platformCheck and player.rect.bottom < self.rect.top):
+            self.move(12, "up")
         if not self.platformCheck and self.speedY == 0:
             self.move(0, "up")
         #gets to same level as player, then walks towards player and attacks
@@ -167,9 +165,9 @@ class Enemy(pygame.sprite.Sprite):
                 self.direction = 'R'
             
             for w in all_weapons.sprites():
-                if(w.owner == self):
+                if(w.owner == self and w.cooldown == 0):
                     w.setDirection(self.direction)
-                    #w.activate()
+                    w.activate()
         
         if(elevel > plevel):
             print('too low')

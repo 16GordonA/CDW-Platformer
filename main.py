@@ -174,12 +174,9 @@ while Dude.alive and Enemy1.alive:
         if Enemy1.alive:
             for w in all_weapons.sprites():
                 if(w.owner == Enemy1):
+                    print w.cooldown
                     w.activate()
-                    
-    if Enemy1.alive:
-            for w in all_weapons.sprites():
-                if(w.owner == Enemy1):
-                    w.activate()
+                    print w.cooldown
     
     if key[K_l]:
         Rock.setOwner(Dude)
@@ -199,6 +196,9 @@ while Dude.alive and Enemy1.alive:
     for w in all_weapons.sprites():
         for c in all_chars.sprites():
             w.contactPlayer(c)
+        for e in all_enemies.sprites():
+            if w.contactPlayer(e):
+                w.setOwner(Enemy1)
         w.updateLocation()
         w.tickTimer()
 
