@@ -1,0 +1,21 @@
+Game AI:
+
+3 parts
+    Part 1: Follows Player
+        <if *not* on same level as player as determined by get_rect()-age>
+            <if on lower level than player as determined by get_rect()-age>
+                <staying within bounds of current platform (dont want to fall)>
+                    <jump up and down and move from one edge to the other>
+            <if on higher level than player as determined by get_rect()-age>
+                <try to fall off current platform>
+    
+    Part 2: Moves erratically enough that can dodge/try to dodge attacks
+        
+        if(on same level as player as determined by get_rect()-age)
+            <jump up and down???>
+    
+    Part 3: Shoots when facing player & on same level
+        
+        if(on same level as player as determind by get_rect()-age)
+            <face player>
+            <shoot>
