@@ -7,7 +7,7 @@ all_enemies = pygame.sprite.Group()
 
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, image, startX, startY, name):
+    def __init__(self, image, startX, startY, lives, name):
         pygame.sprite.Sprite.__init__(self)
         self.image = image.convert_alpha()  # transparent image
         self.rect = self.image.get_rect().move(startX, startY)  # rect is for blitting
@@ -18,11 +18,12 @@ class Enemy(pygame.sprite.Sprite):
         self.item = None
         self.direction = 'R'  # direction (L,R)
         self.alive = True
+        self.lives = lives
         self.HP = 100
         pygame.sprite.Sprite.__init__(self, all_enemies)
 
     def update(self, keyPressed, all_plats):
-        self.updateSpeed(keyPressed)
+        #self.updateSpeed(keyPressed)
         for p in all_plats:
             self.checkCollision(p)
             self.platformCheck = False
@@ -32,13 +33,19 @@ class Enemy(pygame.sprite.Sprite):
         self.updateLocation()
         self.updateItem(keyPressed)
 
-    def setHP(self, newHP):
-        self.HP = newHP
+    def setHP(self, hp):
+        self.HP = hp
         if(self.HP <= 0):
             self.HP = 0
-            self.alive = False
-            poof = pygame.image.load('Images/Poof.png')
-            self.image = poof.convert_alpha()
+            if self.lives > 1:
+                self.lives -= 1
+                self.HP = 110
+                self.item = None
+            else:
+                self.alive = False
+                poof = pygame.image.load('Images/Poof.png')
+                self.image = poof.convert_alpha()
+                
             self.speedX = 0
             self.speedY = 0
     
@@ -85,21 +92,8 @@ class Enemy(pygame.sprite.Sprite):
             self.platformCheck = True  # if after checking all blocks, platformCheck is still False, set land to False
 
     def updateSpeed(self, player):  # name saved from Character class, can be changed later
-        if not self.land:  # Gravity
-            self.speedY += 1
-        if self.speedX != 0:  # Air Resistance when not choosing a direction
-            if self.land:  # If on the ground
-                if self.speedX > 0:  # If going right originally
-                    self.speedX /= 2
-                else:  # If going left originally
-                    self.speedX /= 2
-                    self.speedX += 1
-            else:  # If in the air
-                if self.speedX > 0:  # If going right originally
-                    self.speedX = 3 * self.speedX / 4
-                else:  # If going left originally
-                    self.speedX /= 3 * self.speedX / 4
-                    self.speedX += 1
+        self.AI(player)
+        
         
         if player.rect.bottom > self.rect.top:
             self.move(10, "up")
@@ -116,5 +110,75 @@ class Enemy(pygame.sprite.Sprite):
     def updateLocation(self):  # Handles the movement simply / Call LAST
         self.rect = self.rect.move(self.speedX, self.speedY)
 
+    def updateItem(self, itemName):
+        self.Item = itemName
+    
     def refreshItem(self, itemName):
         self.Item = itemName
+
+    def AI (self, player):
+        
+        if not self.land:  # Gravity
+            self.speedY += 1
+        if self.speedX != 0:  # Air Resistance when not choosing a direction
+            if self.land:  # If on the ground
+                if self.speedX > 0:  # If going right originally
+                    self.speedX /= 2
+                else:  # If going left originally
+                    self.speedX /= 2
+                    self.speedX += 1
+            else:  # If in the air
+                if self.speedX > 0:  # If going right originally
+                    self.speedX = 3 * self.speedX / 4
+                else:  # If going left originally
+                    self.speedX /= 3 * self.speedX / 4
+                    self.speedX += 1
+        
+        '''
+        Part 1: Follows Player
+        <if *not* on same level as player as determined by get_rect()-age>
+            <if on lower level than player as determined by get_rect()-age>
+                <staying within bounds of current platform (dont want to fall)>
+                    <jump up and down and move from one edge to the other>
+            <if on higher level than player as determined by get_rect()-age>
+                <try to fall off current platform>
+    
+    Part 2: Moves erratically enough that can dodge/try to dodge attacks
+        
+        if(on same level as player as determined by get_rect()-age)
+            <jump up and down???>
+    
+    Part 3: Shoots when facing player & on same level
+        
+        if(on same level as player as determind by get_rect()-age)
+            <face player>
+            <shoot>
+            '''
+        
+        floor = player.rect.bottom
+        plevel = floor/60
+        
+        elevel = self.rect.bottom/60
+        
+        if(elevel == plevel):
+            if(player.rect.right < self.rect.right):
+                self.direction = 'L'
+            else:
+                self.direction = 'R'
+            
+            for w in all_weapons.sprites():
+                if(w.owner == self):
+                    w.setDirection(self.direction)
+                    #w.activate()
+        
+        if(elevel > plevel):
+            print('too low')
+            #jump
+            #move around, staying on platform
+            
+        if(elevel < plevel):
+            print('too high')
+            #walk off given platform
+        
+            
+        

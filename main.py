@@ -113,7 +113,7 @@ elif characterName == 'player':
 evilRock = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8, 0)
     
 
-Enemy1 = Player2(enemy, 450, 400, 4)
+Enemy1 = Enemy(enemy, 450, 400, 4, "enemy")
 Rock.setOwner(Dude)
 evilRock.setOwner(Enemy1)
 
@@ -159,6 +159,7 @@ while Dude.alive and Enemy1.alive:
         e.updateSpeed(Dude)
     Dude.update(key, all_plats)
     Enemy1.update(key, all_plats)
+    Enemy1.AI(Dude)
 
     if key[K_ESCAPE]:
         sys.exit()
@@ -174,7 +175,12 @@ while Dude.alive and Enemy1.alive:
             for w in all_weapons.sprites():
                 if(w.owner == Enemy1):
                     w.activate()
-        
+                    
+    if Enemy1.alive:
+            for w in all_weapons.sprites():
+                if(w.owner == Enemy1):
+                    w.activate()
+    
     if key[K_l]:
         Rock.setOwner(Dude)
     
