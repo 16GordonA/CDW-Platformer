@@ -7,7 +7,7 @@ all_projs = pygame.sprite.Group()
 
 
 class MeleeWeapon(pygame.sprite.Sprite):
-    def __init__(self, image, startX, startY, damage, name):
+    def __init__(self, image, startX, startY, damage, name, speed):
         pygame.sprite.Sprite.__init__(self)
         self.image = image.convert_alpha()  # transparent image
         self.rect = self.image.get_rect().move(startX, startY)  # rect is for blitting
@@ -23,6 +23,7 @@ class MeleeWeapon(pygame.sprite.Sprite):
         self.activated = False
         self.name = name
         self.dir = 'R'  # direction (L, R)
+        self.speed = speed
         pygame.sprite.Sprite.__init__(self, all_weapons)
 
     def updateLocation(self):  # Only used when it has an owner and is activated
@@ -95,14 +96,14 @@ class MeleeWeapon(pygame.sprite.Sprite):
 
 
 class RangeWeapon(MeleeWeapon):
-    def __init__(self, image, p_image, startX, startY, damage, name, p_name, CDMax, spread, pcount):
+    def __init__(self, image, p_image, startX, startY, damage, name, p_name, CDMax, spread, pcount, pspeed):
         pygame.sprite.Sprite.__init__(self)
         self.image = image.convert_alpha()  # transparent image
         self.damage = 0
         self.p_image = p_image  # projectile pic
         self.p_name = p_name  # name of projectile e.g. "arrow"
         self.p_damage = damage  # impact of projectile
-        self.projectile = Projectile(p_image, startX, startY, damage, p_name)  # projectile does its own stuff
+        self.projectile = Projectile(p_image, startX, startY, damage, p_name, pspeed)  # projectile does its own stuff
         self.rect = self.image.get_rect().move(startX, startY)  # rect is for blitting
         self.startX = startX
         self.startY = startY
@@ -117,6 +118,7 @@ class RangeWeapon(MeleeWeapon):
         self.cooldownMax = CDMax
         self.spread = spread
         self.p_count = pcount
+        self.pspeed = pspeed
         pygame.sprite.Sprite.__init__(self, all_weapons)
         
     def updateLocation(self):  # Only used when it has an owner and is activated
@@ -127,14 +129,14 @@ class RangeWeapon(MeleeWeapon):
                     self.rect = self.rect.move(self.owner.rect.right, self.owner.rect.centery - (self.rect.height / 2))
                     if self.timer > 4:
                         for i in range(self.p_count):
-                            p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name)
+                            p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name, self.pspeed)
                             p.setDirection(self.dir)
                             self.p_array.append(p)
                 else:
                     self.rect = self.rect.move(self.owner.rect.left - self.rect.width, self.owner.rect.centery - (self.rect.height / 2))
                     if self.timer > 4:
                         for i in range(self.p_count):
-                            p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name)
+                            p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name, self.pspeed)
                             p.setDirection(self.dir)
                             self.p_array.append(p)
             if self.owner.item != self.name:
@@ -162,15 +164,15 @@ class RangeWeapon(MeleeWeapon):
 class Projectile(MeleeWeapon):
     def updateLocation(self):  # moves
         if self.dir == 'R':
-            self.rect = self.rect.move(6, 0)
+            self.rect = self.rect.move(self.speed, 0)
         else:
-            self.rect = self.rect.move(-6, 0)
+            self.rect = self.rect.move(-self.speed, 0)
         if self.rect.left > 1500 or self.rect.right < -500:
             if self.dir == 'R':
-                self.rect = self.rect.move(-6, 0) #moves backwards so net movement = 0
+                self.rect = self.rect.move(-self.speed, 0) #moves backwards so net movement = 0
                 self.name = "gone"
             elif self.dir == 'L':
-                self.rect = self.rect.move(6, 0)
+                self.rect = self.rect.move(self.speed, 0)
                 self.name = "gone"
         
             all_projs.remove(self)

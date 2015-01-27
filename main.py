@@ -63,6 +63,7 @@ sniper = pygame.image.load('Weapon Pics/Sniper.png')
 sshot = pygame.image.load('Weapon Pics/sshot.png')
 
 minigun = pygame.image.load('Weapon Pics/Minigun.png')
+mine = pygame.image.load('Weapon Pics/Mine.png')
 
 characterName = 'gel'  # blobert, gel or player
 
@@ -97,20 +98,20 @@ print "Setting up Characters and Weapons..."
 if characterName == 'blobert':
     Dude = Character(blobert, 150, 400, 4)
     Top = Hat(tophat, Dude)
-    Fist = MeleeWeapon(blobFist, 999, 999, 5, "blobFist")
-    Rock = RangeWeapon(blobRock, blobRock, 999, 999, 1, "Rock", "blobRock", 8, 0, 1)
+    Fist = MeleeWeapon(blobFist, 999, 999, 5, "blobFist", 1)
+    Rock = RangeWeapon(blobRock, blobRock, 999, 999, 1, "Rock", "blobRock", 8, 0, 1, 5)
 elif characterName == 'gel':
     Dude = Character(gel, 150, 400, 4)
     #Top = Hat(tophat, Dude)
-    Fist = MeleeWeapon(gelFist, 999, 999, 5, "gelFist")
-    Rock = RangeWeapon(gelRock, gelRock, 999, 999, 1, "Rock", "gelRock", 8, 0, 1)
+    Fist = MeleeWeapon(gelFist, 999, 999, 5, "gelFist", 1)
+    Rock = RangeWeapon(gelRock, gelRock, 999, 999, 1, "Rock", "gelRock", 8, 0, 1, 5)
 elif characterName == 'player':
     Dude = Character(player, 150, 400, 4)
     #Top = Hat(tophat, Dude)
-    Fist = MeleeWeapon(stickFist, 999, 999, 5, "stickFist")
-    Rock = RangeWeapon(stickRock, stickRock, 999, 999, 1, "Rock", "stickRock", 8, 0, 1)
+    Fist = MeleeWeapon(stickFist, 999, 999, 5, "stickFist", 1)
+    Rock = RangeWeapon(stickRock, stickRock, 999, 999, 1, "Rock", "stickRock", 8, 0, 1, 5)
     
-evilRock = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8, 0, 1)
+evilRock = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8, 0, 1, 5)
     
 
 Enemy1 = Player2(enemy, 450, 400, 4)
@@ -118,15 +119,18 @@ Rock.setOwner(Dude)
 evilRock.setOwner(Enemy1)
 
 #Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
-Shuriken = RangeWeapon(shuriken, shuriken, 150, 65, 1, "Shuriken", "Shuriken", 3, 2, 1)
-Dagger = RangeWeapon(dagger, dagger, 450, 65, 5, "Dagger", "Dagger", 15, 1, 1)
-Spear = RangeWeapon(spear, spear, 15, 360, 8, "Javelin", "Javelin", 24, 5, 1)
-HandGun = RangeWeapon(blobFist, stickFist, 570, 120, 2, "HandGun", "Hand", 6, 10, 1)
-BowAndArrow = RangeWeapon(bow, arrow, 300, 425, 3, "Bow and Arrow", "Arrow", 9, 3, 1)
+Shuriken = RangeWeapon(shuriken, shuriken, 150, 65, 1, "Shuriken", "Shuriken", 3, 2, 1, 5)
+Dagger = RangeWeapon(dagger, dagger, 450, 65, 5, "Dagger", "Dagger", 15, 1, 1, 5)
+Spear = RangeWeapon(spear, spear, 15, 360, 8, "Javelin", "Javelin", 24, 5, 1,4)
+HandGun = RangeWeapon(blobFist, stickFist, 570, 120, 2, "HandGun", "Hand", 6, 10, 1, 7)
+BowAndArrow = RangeWeapon(bow, arrow, 300, 425, 3, "Bow and Arrow", "Arrow", 9, 3, 1, 6)
 
-Sniper = RangeWeapon(sniper, sshot, 280, 300, 20, "Sniper", "sniper shot", 60, 0, 1)
-Mini1 = RangeWeapon(minigun, sshot, 240, 180, 1, "Minigun1", "shot", 3, 8, 2)
-Mini2 = RangeWeapon(minigun, sshot, 360, 180, 1, "Minigun2", "shot", 3, 8, 2)
+Sniper = RangeWeapon(sniper, sshot, 280, 300, 20, "Sniper", "sniper shot", 60, 0, 1, 15)
+Mini1 = RangeWeapon(minigun, sshot, 240, 180, 1, "Minigun1", "shot", 3, 8, 2, 8)
+Mini2 = RangeWeapon(minigun, sshot, 360, 180, 1, "Minigun2", "shot", 3, 8, 2, 8)
+
+Mine = RangeWeapon(mine, mine, 300, 15, 30, "Mine", "Mine", 120, 0, 1, 20)
+Mine.pspeed = 0
 
 
 print "Complete!"
@@ -177,9 +181,11 @@ while Dude.alive and Enemy1.alive:
         
     if key[K_l]:
         Rock.setOwner(Dude)
+        Dude.setHP(Dude.HP - 1)
     
     if key[K_v]:
         evilRock.setOwner(Enemy1)
+        Enemy1.setHP(Enemy1.HP - 1)
 
     for w in all_weapons.sprites():
         if(w.owner == Dude):
