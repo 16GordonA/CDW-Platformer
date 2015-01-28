@@ -129,7 +129,7 @@ Sniper = RangeWeapon(sniper, sshot, 280, 300, 20, "Sniper", "sniper shot", 60, 0
 Mini1 = RangeWeapon(minigun, sshot, 240, 180, 1, "Minigun1", "shot", 3, 8, 2, 8, all_plats)
 Mini2 = RangeWeapon(minigun, sshot, 360, 180, 1, "Minigun2", "shot", 3, 8, 2, 8, all_plats)
 
-Mine = ThrowWeapon(mine, mine, 300, 15, 30, "Mine", "Mine", 100, 5, 1, 6, all_plats)
+Mine = ThrowWeapon(mine, mine, 300, 15, 30, "Mine", "Mine", 100, 5, 1, 4, all_plats)
 
 
 

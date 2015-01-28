@@ -25,7 +25,7 @@ class MeleeWeapon(pygame.sprite.Sprite):
         self.dir = 'R'  # direction (L, R)
         self.speed = speed
         self.all_plats = plats
-        self.speedy = -7
+        self.speedy = -12
         self.land = False
         pygame.sprite.Sprite.__init__(self, all_weapons)
 
