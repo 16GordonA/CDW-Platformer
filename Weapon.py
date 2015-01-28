@@ -7,7 +7,7 @@ all_projs = pygame.sprite.Group()
 
 
 class MeleeWeapon(pygame.sprite.Sprite):
-    def __init__(self, image, startX, startY, damage, name, speed):
+    def __init__(self, image, startX, startY, damage, name, speed, plats):
         pygame.sprite.Sprite.__init__(self)
         self.image = image.convert_alpha()  # transparent image
         self.rect = self.image.get_rect().move(startX, startY)  # rect is for blitting
@@ -24,6 +24,9 @@ class MeleeWeapon(pygame.sprite.Sprite):
         self.name = name
         self.dir = 'R'  # direction (L, R)
         self.speed = speed
+        self.all_plats = plats
+        self.speedy = -7
+        self.land = False
         pygame.sprite.Sprite.__init__(self, all_weapons)
 
     def updateLocation(self):  # Only used when it has an owner and is activated
@@ -96,14 +99,14 @@ class MeleeWeapon(pygame.sprite.Sprite):
 
 
 class RangeWeapon(MeleeWeapon):
-    def __init__(self, image, p_image, startX, startY, damage, name, p_name, CDMax, spread, pcount, pspeed):
+    def __init__(self, image, p_image, startX, startY, damage, name, p_name, CDMax, spread, pcount, pspeed, plats):
         pygame.sprite.Sprite.__init__(self)
         self.image = image.convert_alpha()  # transparent image
         self.damage = 0
         self.p_image = p_image  # projectile pic
         self.p_name = p_name  # name of projectile e.g. "arrow"
         self.p_damage = damage  # impact of projectile
-        self.projectile = Projectile(p_image, startX, startY, damage, p_name, pspeed)  # projectile does its own stuff
+        #self.projectile = Projectile(p_image, startX, startY, damage, p_name, pspeed)  # projectile does its own stuff
         self.rect = self.image.get_rect().move(startX, startY)  # rect is for blitting
         self.startX = startX
         self.startY = startY
@@ -119,6 +122,7 @@ class RangeWeapon(MeleeWeapon):
         self.spread = spread
         self.p_count = pcount
         self.pspeed = pspeed
+        self.all_plats = plats
         pygame.sprite.Sprite.__init__(self, all_weapons)
         
     def updateLocation(self):  # Only used when it has an owner and is activated
@@ -129,14 +133,14 @@ class RangeWeapon(MeleeWeapon):
                     self.rect = self.rect.move(self.owner.rect.right, self.owner.rect.centery - (self.rect.height / 2))
                     if self.timer > 4:
                         for i in range(self.p_count):
-                            p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name, self.pspeed)
+                            p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name, self.pspeed, self.all_plats)
                             p.setDirection(self.dir)
                             self.p_array.append(p)
                 else:
                     self.rect = self.rect.move(self.owner.rect.left - self.rect.width, self.owner.rect.centery - (self.rect.height / 2))
                     if self.timer > 4:
                         for i in range(self.p_count):
-                            p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name, self.pspeed)
+                            p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name, self.pspeed, self.all_plats)
                             p.setDirection(self.dir)
                             self.p_array.append(p)
             if self.owner.item != self.name:
@@ -161,6 +165,35 @@ class RangeWeapon(MeleeWeapon):
                     self.rect = self.rect.move(999, 999)
 
 
+class ThrowWeapon(RangeWeapon):
+    def updateLocation(self):  # Only used when it has an owner and is activated
+        if self.owner is not None:
+            if self.activated:
+                self.rect = self.rect.move(-1 * self.rect.x, -1 * self.rect.y)
+                if self.owner.direction == 'R':
+                    self.rect = self.rect.move(self.owner.rect.right, self.owner.rect.centery - (self.rect.height / 2))
+                    if self.timer > 4:
+                        for i in range(self.p_count):
+                            p = Throwable(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name, self.pspeed, self.all_plats)
+                            p.setDirection(self.dir)
+                            self.p_array.append(p)
+                else:
+                    self.rect = self.rect.move(self.owner.rect.left - self.rect.width, self.owner.rect.centery - (self.rect.height / 2))
+                    if self.timer > 4:
+                        for i in range(self.p_count):
+                            p = Throwable(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name, self.pspeed, self.all_plats)
+                            p.setDirection(self.dir)
+                            self.p_array.append(p)
+            if self.owner.item != self.name:
+                self.owner = None
+                self.timer = 0
+                self.cooldown = 0
+                self.activated = False
+                self.rect = self.rect.move(-1 * self.rect.x, -1 * self.rect.y)
+                self.rect = self.rect.move(self.startX, self.startY)
+        for i in range(len(self.p_array)):
+            self.p_array[i].updateLocation()
+
 class Projectile(MeleeWeapon):
     def updateLocation(self):  # moves
         if self.dir == 'R':
@@ -183,3 +216,66 @@ class Projectile(MeleeWeapon):
         if self.rect.bottom > target.rect.top and self.rect.top < target.rect.bottom and self.rect.right > target.rect.left and self.rect.left < target.rect.right and self.owner is None:
             target.setHP(target.HP - self.dmg)
             self.rect = self.rect.move(999, 999)
+
+class Throwable(Projectile):
+    def updateLocation(self):  # moves
+        self.update()
+        if self.land:
+            if self.speed > 0:
+                self.speed = self.speed - 1
+            self.speedy = 0
+        else:
+            self.speedy = self.speedy + 1
+        if self.dir == 'R':
+            self.rect = self.rect.move(self.speed, self.speedy)
+        else:
+            self.rect = self.rect.move(-self.speed, self.speedy)
+        if self.rect.left > 1500 or self.rect.right < -500:
+            if self.dir == 'R':
+                self.rect = self.rect.move(-self.speed, 0) #moves backwards so net movement = 0
+                self.name = "gone"
+            elif self.dir == 'L':
+                self.rect = self.rect.move(self.speed, 0)
+                self.name = "gone"
+        
+            all_projs.remove(self)
+            all_weapons.remove(self)
+    
+    def update(self):
+        self.land = False
+        for p in self.all_plats:
+            self.checkCollision(p)
+            self.platformCheck = False
+            self.checkOnPlatform(p)
+            if self.platformCheck:
+                self.land = True
+        
+    def checkCollision(self, target):
+        if self.speedy > 0:  # if going down
+            if self.rect.bottom < target.rect.top and self.rect.bottom + self.speedy + 1 > target.rect.top and self.rect.right > target.rect.left and self.rect.left < target.rect.right:
+                self.speedy = target.rect.top - self.rect.bottom - 1
+            elif self.rect.bottom == target.rect.top and self.rect.right > target.rect.left and self.rect.left < target.rect.right:
+                self.land = True
+                self.speedy = 0
+        if self.speedy < 0:  # if going up
+            if self.rect.top > target.rect.bottom and self.rect.top + self.speedy - 1 < target.rect.bottom and self.rect.right > target.rect.left and self.rect.left < target.rect.right:
+                self.speedy = target.rect.bottom - self.rect.top
+            elif self.rect.top == target.rect.bottom and self.rect.right > target.rect.left and self.rect.left < target.rect.right:
+                self.speedy = 1
+        if self.dir == 'R':  # if going right
+            if self.rect.bottom > target.rect.top and self.rect.top < self.rect.bottom and self.rect.right + self.speed > target.rect.left and self.rect.right < target.rect.left:
+                self.speed = target.rect.left - self.rect.right
+        if self.dir == 'L':  # if going left
+            if self.rect.bottom > target.rect.top and self.rect.top < self.rect.bottom and self.rect.left + self.speed < target.rect.right and self.rect.left > target.rect.right:
+                self.speed = target.rect.right - self.rect.left
+        if (self.rect.right == target.rect.left and self.rect.top < target.rect.bottom and self.rect.bottom > target.rect.top):
+            self.dir = 'L'
+        if (self.rect.left == target.rect.right and self.rect.top < target.rect.bottom and self.rect.bottom > target.rect.top):
+            self.dir = 'R'
+            
+    def checkOnPlatform(self, target):  # Checks if walked off an edge / Only call on all blocks at once / Set self.platformCheck to False before call
+        if (self.rect.bottom > target.rect.top or self.rect.bottom < target.rect.top) or (self.rect.left > target.rect.right or self.rect.right < target.rect.left):
+            pass
+        else:
+            self.platformCheck = True  # if after checking all blocks, platformCheck is still False, set land to False
+        return True
