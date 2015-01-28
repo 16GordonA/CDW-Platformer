@@ -71,7 +71,7 @@ characterName = 'gel'  # blobert, gel or player
 print "Complete!"
 print "Generating Arena..."
 
-f = open("arena_2.txt", "r")
+f = open("arena_3.txt", "r")
 plat_strings = []
 for i in range(9):  # 9 IS THE LENGTH OF PLAT - NEEDS TO BE CHANGED IF NUMBER OF ROWS CHANGES
     plat_strings.append(f.readline())
