@@ -76,7 +76,7 @@ characterName = 'gel'  # blobert, gel or player
 print "Complete!"
 print "Generating Arena..."
 
-f = open("arena_3.txt", "r")
+f = open("arena_1.txt", "r")
 plat_strings = []
 for i in range(9):  # 9 IS THE LENGTH OF PLAT - NEEDS TO BE CHANGED IF NUMBER OF ROWS CHANGES
     plat_strings.append(f.readline())
@@ -104,41 +104,41 @@ if characterName == 'blobert':
     Dude = Character(blobert, 150, 400 + bh, 4)
     Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(blobFist, 999, 999, 5, "blobFist", 1, all_plats)
-    Rock = RangeWeapon(blobRock, blobRock, 999, 999, 1, "Rock", "blobRock", 8, 0, 1, 5, all_plats)
+    Rock = RangeWeapon(blobRock, blobRock, 999, 999, 1, "Rock", "blobRock", 8, 0, 1, 5, all_plats, 'P')
 elif characterName == 'gel':
     Dude = Character(gel, 150, 400 + bh, 4)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(gelFist, 999, 999, 5, "gelFist", 1, all_plats)
-    Rock = RangeWeapon(gelRock, gelRock, 999, 999, 1, "Rock", "gelRock", 8, 0, 1, 5, all_plats)
+    Rock = RangeWeapon(gelRock, gelRock, 999, 999, 1, "Rock", "gelRock", 8, 0, 1, 5, all_plats, 'P')
 elif characterName == 'player':
     Dude = Character(player, 150, 400 + bh, 4)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(stickFist, 999, 999, 5, "stickFist", 1)
-    Rock = RangeWeapon(stickRock, stickRock, 999, 999, 1, "Rock", "stickRock", 8, 0, 1, 5, all_plats)
+    Rock = RangeWeapon(stickRock, stickRock, 999, 999, 1, "Rock", "stickRock", 8, 0, 1, 5, all_plats, 'P')
     
-evilRock = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8, 0, 1, 5, all_plats)
-p3Rock = Rock = RangeWeapon(smileRock, smileRock, 999, 999, 1, "Rock", "blobRock", 8, 0, 1, 5, all_plats)    
+evilRock = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8, 0, 1, 5, all_plats, 'P')
+p3Rock = RangeWeapon(smileRock, smileRock, 999, 999, 1, "Rock", "blobRock", 8, 0, 1, 5, all_plats, 'P')    
 
 Enemy1 = Player2(enemy, 450, 400 + bh, 4)
-Player3 = ThirdPlayer(player3, 575, 400 + bh, 4)
+Player3 = ThirdPlayer(player3, 570, 400 + bh, 4)
 
 Rock.setOwner(Dude)
 p3Rock.setOwner(Player3)
 evilRock.setOwner(Enemy1)
 
 #Sword = MeleeWeapon(sword, 150, 65, 8, "Sword")
-Shuriken = RangeWeapon(shuriken, shuriken, 150, 65 +bh, 1, "Shuriken", "Shuriken", 3, 2, 1, 5, all_plats)
-Dagger = RangeWeapon(dagger, dagger, 450, 65+bh, 5, "Dagger", "Dagger", 15, 1, 1, 5, all_plats)
-Spear = RangeWeapon(spear, spear, 15, 360+bh, 8, "Javelin", "Javelin", 24, 5, 1,4, all_plats)
-HandGun = RangeWeapon(blobFist, stickFist, 570, 120+bh, 2, "HandGun", "Hand", 6, 10, 1, 7, all_plats)
-BowAndArrow = RangeWeapon(bow, arrow, 300, 425+bh, 3, "Bow and Arrow", "Arrow", 9, 3, 1, 6, all_plats)
+Shuriken = RangeWeapon(shuriken, shuriken, 150, 65 +bh, 1, "Shuriken", "Shuriken", 3, 2, 1, 5, all_plats, 'P')
+Dagger = RangeWeapon(dagger, dagger, 450, 65+bh, 5, "Dagger", "Dagger", 15, 1, 1, 5, all_plats, 'P')
+Spear = RangeWeapon(spear, spear, 15, 360+bh, 8, "Javelin", "Javelin", 24, 5, 1,4, all_plats, 'P')
+HandGun = RangeWeapon(blobFist, stickFist, 570, 120+bh, 2, "HandGun", "Hand", 6, 10, 1, 7, all_plats, 'P')
+BowAndArrow = RangeWeapon(bow, arrow, 300, 425+bh, 3, "Bow and Arrow", "Arrow", 9, 3, 1, 6, all_plats, 'P')
 
-Sniper = RangeWeapon(sniper, sshot, 280, 300+bh, 20, "Sniper", "sniper shot", 60, 0, 1, 15, all_plats)
-Mini1 = RangeWeapon(minigun, sshot, 240, 180+bh, 1, "Minigun1", "shot", 3, 8, 2, 8, all_plats)
-Mini2 = RangeWeapon(minigun, sshot, 360, 180+bh, 1, "Minigun2", "shot", 3, 8, 2, 8, all_plats)
-
-Mine = ThrowWeapon(mine, mine, 300, 15+bh, 30, "Mine", "Mine", 100, 5, 1, 4, all_plats)
-Grenade = ExplodeWeapon(grenade, grenade, 40, 425+bh, 10, "Grenade", "Grenade", 50, 0, 1, 4, all_plats)
+Sniper = RangeWeapon(sniper, sshot, 280, 300+bh, 20, "Sniper", "sniper shot", 60, 0, 1, 15, all_plats, 'P')
+Mini1 = RangeWeapon(minigun, sshot, 240, 180+bh, 1, "Minigun1", "shot", 3, 8, 2, 8, all_plats, 'P')
+#Mini2 = RangeWeapon(minigun, sshot, 360, 180+bh, 1, "Minigun2", "shot", 3, 8, 2, 8, all_plats, 'P')
+RPG = RangeWeapon(minigun, dagger, 360, 180+bh, 11, "RPG", "RPG", 65, 4, 1, 6, all_plats, 'E')
+Mine = ThrowWeapon(mine, mine, 300, 15+bh, 30, "Mine", "Mine", 100, 5, 1, 4, all_plats, 'P')
+Grenade = ExplodeWeapon(grenade, grenade, 40, 425+bh, 10, "Grenade", "Grenade", 30, 0, 1, 4, all_plats, 'E')
 
 
 
@@ -235,7 +235,7 @@ while living >= 2:
     for i in range(Enemy1.lives):
         screen.blit(heart, (360 - 20 * i, 18))
     
-    P3health = myFont.render("Player 3 Health: " + str(Player3.HP) + "%", 1, (255, 0 ,0))
+    P3health = myFont.render("Smiley Health: " + str(Player3.HP) + "%", 1, (255, 0 ,0))
     screen.blit(P3health, (445, 10))
     
     for i in range(Player3.lives):
@@ -260,6 +260,10 @@ if Dude.alive:
 elif Enemy1.alive:
     print "Vampiric Gel Wins!"
     endpic = pygame.image.load('Images/VG Wins.png')
+    
+elif Player3.alive:
+    print "Smiley Wins!"
+    endpic = pygame.image.load('Images/SmileWins.png')
     
 else:
     print "It was a tie!"

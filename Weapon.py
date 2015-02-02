@@ -101,7 +101,7 @@ class MeleeWeapon(pygame.sprite.Sprite):
 
 
 class RangeWeapon(MeleeWeapon):
-    def __init__(self, image, p_image, startX, startY, damage, name, p_name, CDMax, spread, pcount, pspeed, plats):
+    def __init__(self, image, p_image, startX, startY, damage, name, p_name, CDMax, spread, pcount, pspeed, plats, type):
         pygame.sprite.Sprite.__init__(self)
         self.image = image.convert_alpha()  # transparent image
         self.damage = 0
@@ -125,6 +125,7 @@ class RangeWeapon(MeleeWeapon):
         self.p_count = pcount
         self.pspeed = pspeed
         self.all_plats = plats
+        self.type = type
         pygame.sprite.Sprite.__init__(self, all_weapons)
         
     def updateLocation(self):  # Only used when it has an owner and is activated
@@ -133,16 +134,26 @@ class RangeWeapon(MeleeWeapon):
                 self.rect = self.rect.move(-1 * self.rect.x, -1 * self.rect.y)
                 if self.owner.direction == 'R':
                     self.rect = self.rect.move(self.owner.rect.right, self.owner.rect.centery - (self.rect.height / 2))
-                    if self.timer > 4:
+                    if self.timer > 4 and self.type == 'P':
                         for i in range(self.p_count):
                             p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name, self.pspeed, self.all_plats)
                             p.setDirection(self.dir)
                             self.p_array.append(p)
+                    elif self.timer > 4 and self.type == 'E':
+                        for i in range(self.p_count):
+                            p = ExplosiveP(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name, self.pspeed, self.all_plats) 
+                            p.setDirection(self.dir)
+                            self.p_array.append(p)
                 else:
                     self.rect = self.rect.move(self.owner.rect.left - self.rect.width, self.owner.rect.centery - (self.rect.height / 2))
-                    if self.timer > 4:
+                    if self.timer > 4 and self.type == 'P':
                         for i in range(self.p_count):
                             p = Projectile(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name, self.pspeed, self.all_plats)
+                            p.setDirection(self.dir)
+                            self.p_array.append(p)
+                    if self.timer > 4 and self.type == 'E':
+                        for i in range(self.p_count):
+                            p = ExplosiveP(self.p_image, self.rect.x, self.rect.centery - (self.p_image.get_rect().height / 2 + random.randint(-self.spread, self.spread)), self.p_damage, self.p_name, self.pspeed, self.all_plats)
                             p.setDirection(self.dir)
                             self.p_array.append(p)
             if self.owner.item != self.name:
@@ -337,7 +348,37 @@ class Explosive(Throwable):
             frag = pygame.image.load('Weapon Pics/frag.png')
             dirs = ['U','UL','L','DL','D','RD','R','UR']
             for dir in dirs:
-                p = Projectile(frag, self.rect.centerx - frag.get_rect().width/2, self.rect.centery - frag.get_rect().height/2, 3, 'shrapnel', 5, self.all_plats)
+                p = Projectile(frag, self.rect.centerx - frag.get_rect().width/2, self.rect.centery - frag.get_rect().height/2, 3, 'shrapnel', 8, self.all_plats)
                 p.setDirection(dir)
+            all_projs.remove(self)
+            all_weapons.remove(self)
+class ExplosiveP(Explosive):
+    def contactPlayer(self, target):
+        if self.rect.bottom > target.rect.top and self.rect.top < target.rect.bottom and ((self.rect.right > target.rect.left and self.rect.right < target.rect.right) or (self.rect.left < target.rect.right and self.rect.left > target.rect.left)) and self.owner is None:
+            target.setHP(target.HP - self.dmg)
+            self.boom()
+            
+    def updateLocation(self):  # moves
+        if self.dir == 'R':
+            self.rect = self.rect.move(self.speed, 0)
+        elif self.dir == 'UR' or self.dir == 'RU':
+            self.rect = self.rect.move(self.speed, -self.speed)
+        elif self.dir == 'U':
+            self.rect = self.rect.move(0, -self.speed)
+        elif self.dir == 'LU' or self.dir == 'UL':
+            self.rect = self.rect.move(-self.speed, -self.speed)
+        elif self.dir == 'L':
+            self.rect = self.rect.move(-self.speed, 0)
+        elif self.dir == 'LD' or self.dir == 'DL':
+            self.rect = self.rect.move(-self.speed, self.speed)
+        elif self.dir == 'D':
+            self.rect = self.rect.move(0, self.speed)
+        elif self.dir == 'DR' or self.dir == 'RD':
+            self.rect = self.rect.move(self.speed, self.speed)
+        else:
+            self.rect = self.rect.move(0, 0)
+        if self.rect.left > 700 or self.rect.right < -100:
+            self.name = "gone"
+        
             all_projs.remove(self)
             all_weapons.remove(self)
