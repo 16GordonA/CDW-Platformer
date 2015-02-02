@@ -154,3 +154,30 @@ class Player2(Character):
                 self.move(12, "up")
             if not self.platformCheck and self.speedY == 0:
                 self.move(0, "up")
+                
+class ThirdPlayer(Character):
+    def updateSpeed(self, keyPressed):  # Causes gravitational acceleration / Causes air resistance or friction (less when not on the ground) / ADD COUNTERS TO SLOW DOWN IF TOO FAST
+        if self.alive:
+            if not self.land:  # Gravity
+                self.speedY += 1
+            if self.speedX != 0 and not keyPressed[K_h] and not keyPressed[K_k]:  # Air Resistance when not choosing a direction
+                if self.land:  # If on the ground
+                    if self.speedX > 0:  # If going right originally
+                        self.speedX /= 2
+                    else:  # If going left originally
+                        self.speedX /= 2
+                        self.speedX += 1
+                else:  # If in the air
+                    if self.speedX > 0:  # If going right originally
+                        self.speedX = 3 * self.speedX / 4
+                    else:  # If going left originally
+                        self.speedX /= 3 * self.speedX / 4
+                        self.speedX += 1
+            if keyPressed[K_k]:  # Movement Tests
+                self.move(5, "right")
+            elif keyPressed[K_h]:
+                self.move(5, "left")
+            if keyPressed[K_u]:
+                self.move(12, "up")
+            if not self.platformCheck and self.speedY == 0:
+                self.move(0, "up")
