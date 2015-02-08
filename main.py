@@ -227,11 +227,12 @@ while living >= 2:
 
 
     counter = 0
+    
     for char in all_chars:
         htext = myFont.render(char.name + " Damage:" + str(char.HP) + "%", 1, (255,0,0))
-        screen.blit(htext, (10+counter * 215, 8))
+        screen.blit(htext, (10+counter * 200, 8))
         for i in range(char.lives):
-            screen.blit(heart, (10+counter * 215 +20*i, 18))
+            screen.blit(heart, (10+counter * 200 +20*i, 18))
         
         counter += 1
 

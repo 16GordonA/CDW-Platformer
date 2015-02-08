@@ -26,9 +26,10 @@ class Character(pygame.sprite.Sprite):
     def setHP(self, hp):
         if(self.time > 60):
             self.HP = hp
-        if(self.HP >= 100):
+        if(self.HP >= 100) or self.alive == False:
             self.HP = 0
             if self.lives > 1:
+                self.alive = True
                 self.lives -= 1
                 self.HP = 0
                 self.item = None
@@ -134,7 +135,8 @@ class Character(pygame.sprite.Sprite):
     def updateLocation(self):  # Handles the movement simply / Call LAST
         self.rect = self.rect.move(self.speedX, self.speedY)
         if self.rect.top > 500:
-            self.setHP(0)
+            self.alive = False
+            self.setHP(999)
 
     def updateItem(self, keyPressed):
         pass
