@@ -138,11 +138,12 @@ BowAndArrow = RangeWeapon(bow, arrow, 300, 425+bh, 3, "Bow and Arrow", "Arrow", 
 
 Sniper = RangeWeapon(sniper, sshot, 280, 300+bh, 20, "Sniper", "sniper shot", 60, 0, 1, 15, all_plats, 'P')
 Mini1 = RangeWeapon(minigun, sshot, 240, 180+bh, 1, "Minigun1", "shot", 3, 8, 2, 8, all_plats, 'P')
-#Mini2 = RangeWeapon(minigun, sshot, 360, 180+bh, 1, "Minigun2", "shot", 3, 8, 2, 8, all_plats, 'P')
-RPG = RangeWeapon(minigun, dagger, 360, 180+bh, 11, "RPG", "RPG", 65, 4, 1, 6, all_plats, 'E')
+Mini2 = RangeWeapon(minigun, sshot, 360, 180+bh, 1, "Minigun2", "shot", 3, 8, 2, 8, all_plats, 'P')
+#RPG = RangeWeapon(minigun, dagger, 360, 180+bh, 11, "RPG", "RPG", 65, 4, 1, 6, all_plats, 'E')
 Mine = ThrowWeapon(mine, mine, 300, 15+bh, 30, "Mine", "Mine", 100, 5, 1, 4, all_plats, 'P')
 Grenade = ExplodeWeapon(grenade, grenade, 40, 425+bh, 10, "Grenade", "Grenade", 30, 0, 1, 4, all_plats, 'E')
 
+hydrarocket = RangeWeapon(minigun, dagger, 0,0, 0, "hydra", 'Rocket', 1, 10, 1, 6, all_plats, 'E')
 
 
 print "Complete!"

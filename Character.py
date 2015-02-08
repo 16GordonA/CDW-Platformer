@@ -36,6 +36,7 @@ class Character(pygame.sprite.Sprite):
                 self.rect = self.rect.move(285-self.rect.left, 390 - self.rect.top)
                 self.time = 0
             else:
+                self.lives = 0
                 self.alive = False
                 poof = pygame.image.load('Images/Poof.png')
                 self.image = poof.convert_alpha()
