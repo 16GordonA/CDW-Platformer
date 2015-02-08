@@ -4,9 +4,11 @@ all_chars = pygame.sprite.Group()
 
 
 class Character(pygame.sprite.Sprite):
-    def __init__(self, image, startX, startY, lives):
+    def __init__(self, image, fimage, startX, startY, lives):
         pygame.sprite.Sprite.__init__(self)
-        self.image = image.convert_alpha()  # transparent image
+        self.nimage = image.convert_alpha()  # transparent image
+        self.flicker = fimage
+        self.image = self.nimage
         self.rect = self.image.get_rect().move(startX, startY)  # rect is for blitting
         self.speedX = 0
         self.speedY = 0
@@ -17,16 +19,20 @@ class Character(pygame.sprite.Sprite):
         self.alive = True
         self.lives = lives
         self.HP = 100
+        self.time = 0
         pygame.sprite.Sprite.__init__(self, all_chars)
 
     def setHP(self, hp):
-        self.HP = hp
+        if(self.time > 60):
+            self.HP = hp
         if(self.HP <= 0):
             self.HP = 0
             if self.lives > 1:
                 self.lives -= 1
-                self.HP = 110
+                self.HP = 100
                 self.item = None
+                self.rect = self.rect.move(285-self.rect.left, 390 - self.rect.top)
+                self.time = 0
             else:
                 self.alive = False
                 poof = pygame.image.load('Images/Poof.png')
@@ -37,6 +43,10 @@ class Character(pygame.sprite.Sprite):
 
     def update(self, keyPressed, all_plats):
         self.updateSpeed(keyPressed)
+        if(self.time < 60 and self.time%15 > 7):
+            self.image = self.flicker
+        else:
+            self.image = self.nimage
         for p in all_plats:
             self.checkCollision(p)
             self.platformCheck = False
@@ -45,6 +55,7 @@ class Character(pygame.sprite.Sprite):
                 self.land = True
         self.updateLocation()
         self.updateItem(keyPressed)
+        self.time = self.time + 1
 
     #probably something else should go in here too about removing sprite from game or changing image
     def move(self, speed, direction):  # changes speed on key press / Call after key event is handled
@@ -121,6 +132,8 @@ class Character(pygame.sprite.Sprite):
 
     def updateLocation(self):  # Handles the movement simply / Call LAST
         self.rect = self.rect.move(self.speedX, self.speedY)
+        if self.rect.top > 500:
+            self.setHP(0)
 
     def updateItem(self, keyPressed):
         pass

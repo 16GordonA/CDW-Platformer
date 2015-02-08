@@ -38,9 +38,12 @@ player = pygame.image.load('Images/Player.png')
 wall = pygame.image.load('Images/wall.png')
 ceiling = pygame.image.load('Images/Ceiling.png')
 gel = pygame.image.load('Images/Blob Player.png')
+gelF = pygame.image.load('Images/Blob PlayerF.png')
 blobert = pygame.image.load('Images/Blobert.png')
 enemy = pygame.image.load('Images/Enemy.png')
+enemyF = pygame.image.load('Images/EnemyF.png')
 player3 = pygame.image.load('Images/Smiley.png')
+player3F = pygame.image.load('Images/SmileyF.png')
 
 tophat = pygame.image.load('Images/topHat.png')
 heart = pygame.image.load('Images/Heart.png')
@@ -101,17 +104,17 @@ print "Complete!"
 print "Setting up Characters and Weapons..."
 
 if characterName == 'blobert':
-    Dude = Character(blobert, 150, 400 + bh, 4)
+    Dude = Character(blobert, blobert, 150, 400 + bh, 4)
     Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(blobFist, 999, 999, 5, "blobFist", 1, all_plats)
     Rock = RangeWeapon(blobRock, blobRock, 999, 999, 1, "Rock", "blobRock", 8, 0, 1, 5, all_plats, 'P')
 elif characterName == 'gel':
-    Dude = Character(gel, 150, 400 + bh, 4)
+    Dude = Character(gel, gelF, 150, 400 + bh, 4)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(gelFist, 999, 999, 5, "gelFist", 1, all_plats)
     Rock = RangeWeapon(gelRock, gelRock, 999, 999, 1, "Rock", "gelRock", 8, 0, 1, 5, all_plats, 'P')
 elif characterName == 'player':
-    Dude = Character(player, 150, 400 + bh, 4)
+    Dude = Character(player, player, 150, 400 + bh, 4)
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(stickFist, 999, 999, 5, "stickFist", 1)
     Rock = RangeWeapon(stickRock, stickRock, 999, 999, 1, "Rock", "stickRock", 8, 0, 1, 5, all_plats, 'P')
@@ -119,8 +122,8 @@ elif characterName == 'player':
 evilRock = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8, 0, 1, 5, all_plats, 'P')
 p3Rock = RangeWeapon(smileRock, smileRock, 999, 999, 1, "Rock", "blobRock", 8, 0, 1, 5, all_plats, 'P')    
 
-Enemy1 = Player2(enemy, 450, 400 + bh, 4)
-Player3 = ThirdPlayer(player3, 570, 400 + bh, 4)
+Enemy1 = Player2(enemy, enemyF, 450, 400 + bh, 4)
+Player3 = ThirdPlayer(player3, player3F, 570, 400 + bh, 4)
 
 Rock.setOwner(Dude)
 p3Rock.setOwner(Player3)
