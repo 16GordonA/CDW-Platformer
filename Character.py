@@ -45,7 +45,7 @@ class Character(pygame.sprite.Sprite):
         self.updateSpeed(keyPressed)
         if(self.time < 60 and self.time%15 > 7):
             self.image = self.flicker
-        else:
+        elif self.alive:
             self.image = self.nimage
         for p in all_plats:
             self.checkCollision(p)
