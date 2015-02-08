@@ -4,7 +4,7 @@ all_chars = pygame.sprite.Group()
 
 
 class Character(pygame.sprite.Sprite):
-    def __init__(self, image, fimage, startX, startY, lives):
+    def __init__(self, image, fimage, startX, startY, lives, name):
         pygame.sprite.Sprite.__init__(self)
         self.nimage = image.convert_alpha()  # transparent image
         self.flicker = fimage
@@ -18,18 +18,19 @@ class Character(pygame.sprite.Sprite):
         self.direction = 'R'  # direction (L,R)
         self.alive = True
         self.lives = lives
-        self.HP = 100
+        self.HP = 0
         self.time = 0
+        self.name = name
         pygame.sprite.Sprite.__init__(self, all_chars)
 
     def setHP(self, hp):
         if(self.time > 60):
             self.HP = hp
-        if(self.HP <= 0):
+        if(self.HP >= 100):
             self.HP = 0
             if self.lives > 1:
                 self.lives -= 1
-                self.HP = 100
+                self.HP = 0
                 self.item = None
                 self.rect = self.rect.move(285-self.rect.left, 390 - self.rect.top)
                 self.time = 0

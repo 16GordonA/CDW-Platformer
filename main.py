@@ -104,17 +104,17 @@ print "Complete!"
 print "Setting up Characters and Weapons..."
 
 if characterName == 'blobert':
-    Dude = Character(blobert, blobert, 150, 400 + bh, 4)
+    Dude = Character(blobert, blobert, 150, 400 + bh, 4, 'Dude')
     Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(blobFist, 999, 999, 5, "blobFist", 1, all_plats)
     Rock = RangeWeapon(blobRock, blobRock, 999, 999, 1, "Rock", "blobRock", 8, 0, 1, 5, all_plats, 'P')
 elif characterName == 'gel':
-    Dude = Character(gel, gelF, 150, 400 + bh, 4)
+    Dude = Character(gel, gelF, 150, 400 + bh, 4, 'Dude')
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(gelFist, 999, 999, 5, "gelFist", 1, all_plats)
     Rock = RangeWeapon(gelRock, gelRock, 999, 999, 1, "Rock", "gelRock", 8, 0, 1, 5, all_plats, 'P')
 elif characterName == 'player':
-    Dude = Character(player, player, 150, 400 + bh, 4)
+    Dude = Character(player, player, 150, 400 + bh, 4, 'Dude')
     #Top = Hat(tophat, Dude)
     Fist = MeleeWeapon(stickFist, 999, 999, 5, "stickFist", 1)
     Rock = RangeWeapon(stickRock, stickRock, 999, 999, 1, "Rock", "stickRock", 8, 0, 1, 5, all_plats, 'P')
@@ -122,8 +122,8 @@ elif characterName == 'player':
 evilRock = RangeWeapon(evilRock, evilRock, 999,999, 1, "Rock", "evilRock", 8, 0, 1, 5, all_plats, 'P')
 p3Rock = RangeWeapon(smileRock, smileRock, 999, 999, 1, "Rock", "blobRock", 8, 0, 1, 5, all_plats, 'P')    
 
-Enemy1 = Player2(enemy, enemyF, 450, 400 + bh, 4)
-Player3 = ThirdPlayer(player3, player3F, 570, 400 + bh, 4)
+Enemy1 = Player2(enemy, enemyF, 450, 400 + bh, 4, 'Vampiric Gel')
+Player3 = ThirdPlayer(player3, player3F, 570, 400 + bh, 4, 'Smiley')
 
 Rock.setOwner(Dude)
 p3Rock.setOwner(Player3)
@@ -148,10 +148,11 @@ Grenade = ExplodeWeapon(grenade, grenade, 40, 425+bh, 10, "Grenade", "Grenade", 
 print "Complete!"
 print "Game Beginning..."
 
-Dude.setHP(150)
-Enemy1.setHP(150)
-Player3.setHP(150)
-living = 3
+living = 0
+for char in all_chars:
+    char.setHP(0)
+    living += 1
+
 
 while living >= 2:
     
@@ -171,16 +172,17 @@ while living >= 2:
     all_chars.draw(screen)
     all_hats.draw(screen)
     all_enemies.draw(screen)
-    Dude.platformCheck = False
+    for char in all_chars:
+        char.platformCheck = False
     for e in all_enemies.sprites():
         e.platformCheck = False
 
     key = pygame.key.get_pressed()
     for e in all_enemies.sprites():
         e.updateSpeed(Dude)
-    Dude.update(key, all_plats)
-    Enemy1.update(key, all_plats)
-    Player3.update(key, all_plats)
+        
+    for char in all_chars:
+        char.update(key, all_plats)
 
     if key[K_ESCAPE]:
         sys.exit()
@@ -203,12 +205,9 @@ while living >= 2:
                     w.activate()
 
     for w in all_weapons.sprites():
-        if(w.owner == Dude):
-            w.setDirection(Dude.direction)
-        if(w.owner == Enemy1):
-            w.setDirection(Enemy1.direction)
-        if(w.owner == Player3):
-            w.setDirection(Player3.direction)
+        for char in all_chars:
+            if w.owner == char:
+                w.setDirection(w.owner.direction)
             
     if characterName == 'blobert' and Dude.alive:
         Top.updateLocation()
@@ -226,30 +225,20 @@ while living >= 2:
     for e in all_enemies:
         pygame.sprite.spritecollide(e, all_projs, True)
 
-    P1health = myFont.render("Dude Health: "+str(Dude.HP) + "%", 1,(255,0,0))
-    screen.blit(P1health, (10, 10))
-    
-    for i in range(Dude.lives):
-        screen.blit(heart, (10 + 20 * i, 18))
 
-    E1health = myFont.render("Vampiric Gel Health: " + str(Enemy1.HP) + "%", 1, (255, 0 ,0))
-    screen.blit(E1health, (225, 10))
+    counter = 0
+    for char in all_chars:
+        htext = myFont.render(char.name + " Damage:" + str(char.HP) + "%", 1, (255,0,0))
+        screen.blit(htext, (10+counter * 215, 8))
+        for i in range(char.lives):
+            screen.blit(heart, (10+counter * 215 +20*i, 18))
+        
+        counter += 1
+
     
-    for i in range(Enemy1.lives):
-        screen.blit(heart, (360 - 20 * i, 18))
-    
-    P3health = myFont.render("Smiley Health: " + str(Player3.HP) + "%", 1, (255, 0 ,0))
-    screen.blit(P3health, (445, 10))
-    
-    for i in range(Player3.lives):
-        screen.blit(heart, (560 - 20 * i, 18))
-    
-    if Dude.HP > 100:
-        Dude.setHP(Dude.HP - 1)
-    if Enemy1.HP > 100:
-        Enemy1.setHP(Enemy1.HP - 1)
-    if Player3.HP > 100:
-        Player3.setHP(Player3.HP - 1)
+    for char in all_chars:
+        if char.HP < 0:
+            char.setHP(char.HP + 1)
         
     living = Dude.alive + Enemy1.alive + Player3.alive
     

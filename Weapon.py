@@ -236,7 +236,7 @@ class Projectile(MeleeWeapon):
 
     def contactPlayer(self, target):
         if self.rect.bottom > target.rect.top and self.rect.top < target.rect.bottom and self.rect.right > target.rect.left and self.rect.left < target.rect.right and self.owner is None:
-            target.setHP(target.HP - self.dmg)
+            target.setHP(target.HP + self.dmg)
             if self.dir == 'R' or self.dir == 'UR' or self.dir == 'RU' or self.dir == 'RD' or self.dir == 'DR':
                 target.rect = target.rect.move(int(self.dmg),0)
             elif self.dir.find('L') >= 0:
@@ -359,7 +359,7 @@ class Explosive(Throwable):
 class ExplosiveP(Explosive):
     def contactPlayer(self, target):
         if self.rect.bottom > target.rect.top and self.rect.top < target.rect.bottom and ((self.rect.right > target.rect.left and self.rect.right < target.rect.right) or (self.rect.left < target.rect.right and self.rect.left > target.rect.left)) and self.owner is None:
-            target.setHP(target.HP - self.dmg)
+            target.setHP(target.HP + self.dmg)
             self.boom()
             
     def updateLocation(self):  # moves
